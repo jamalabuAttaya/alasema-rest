@@ -1,0 +1,136 @@
+{
+    "restaurant": {
+      "name": "مطعم العاصمة",
+      "location": "النصيرات - دوار أبو صرار",
+      "note": "جميع الساندويشات والوجبات تشمل (بطاطا شيبس + مخللات + كتشاب)",
+      "categories": [
+        {
+          "id": 1,
+          "name": "🥗 سلطات",
+          "items": [
+            { "id": 101, "name": "سلطة تركية", "price": 5, "image": "assets/images/menu-items/turkish-salad.webp" },
+            { "id": 102, "name": "كول سلو", "price": 5, "image": "assets/images/menu-items/coleslaw.webp" },
+            { "id": 103, "name": "ملفوف احمر بالمايونيز", "price": 5, "image": "assets/images/menu-items/red-cabbage.webp" },
+            { "id": 104, "name": "ذرة بالمايونيز", "price": 7, "image": "assets/images/menu-items/corn-mayo.webp" },
+            { "id": 105, "name": "سلطة العاصمة", "price": 15, "image": "assets/images/menu-items/capital-salad.webp" }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "🍟 مقبلات",
+          "items": [
+            { "id": 201, "name": "أصابع جبنة", "price": 10, "image": "assets/images/menu-items/cheese-sticks.webp" },
+            { "id": 202, "name": "بطاطا", "price": 10, "image": "assets/images/menu-items/fries.webp" },
+            { "id": 203, "name": "رول مسخن", "price": 10, "image": "assets/images/menu-items/musakhan-roll.webp" }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "🍔 برجر",
+          "items": [
+            { "id": 301, "name": "تشيكن برجر", "price": 30, "image": "assets/images/menu-items/chicken-burger.webp" },
+            { "id": 302, "name": "بيف برجر", "price": 30, "image": "assets/images/menu-items/beef-burger.webp" },
+            { "id": 303, "name": "كريسبي برجر", "price": 35, "image": "assets/images/menu-items/crispy-burger.webp" }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "🥪 ساندويشات",
+          "items": [
+            { "id": 401, "name": "دجاج مكسيكي حار", "price": 30, "image": "assets/images/menu-items/mexican-chicken.webp" },
+            { "id": 402, "name": "شيش طاووق", "price": 30, "image": "assets/images/menu-items/shish-tawook.webp" },
+            { "id": 403, "name": "تشيكن كاري", "price": 30, "image": "assets/images/menu-items/chicken-curry.webp" },
+            { "id": 404, "name": "تشيكن بيتزا", "price": 30, "image": "assets/images/menu-items/chicken-pizza.webp" },
+            { "id": 405, "name": "دجاج بالذرة والجبنة", "price": 30, "image": "assets/images/menu-items/corn-cheese-chicken.webp" },
+            { "id": 406, "name": "دجاج بالمشروم والكريمة", "price": 35, "image": "assets/images/menu-items/mushroom-chicken.webp" },
+            { "id": 407, "name": "مسخن فلسطيني", "price": 35, "image": "assets/images/menu-items/musakhan.webp" },
+            { "id": 408, "name": "رول الذهبي", "price": 35, "image": "assets/images/menu-items/golden-roll.webp" },
+            { "id": 409, "name": "نابولي", "price": 35, "image": "assets/images/menu-items/napoli.webp" },
+            { "id": 410, "name": "تشيكن بيستو", "price": 35, "image": "assets/images/menu-items/pesto-chicken.webp" },
+            { "id": 411, "name": "الأكيف", "price": 35, "image": "assets/images/menu-items/akef.webp" }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "🍽️ وجبات",
+          "items": [
+            { "id": 501, "name": "اسكوليبيني", "price": 50, "image": "assets/images/menu-items/escalopini.webp" },
+            { "id": 502, "name": "تشيكن بيتزا", "price": 50, "image": "assets/images/menu-items/chicken-pizza-meal.webp" },
+            { "id": 503, "name": "دجاج بالذرة والجبنة", "price": 50, "image": "assets/images/menu-items/corn-cheese-meal.webp" },
+            { "id": 504, "name": "دجاج بالمشروم والكريمة", "price": 50, "image": "assets/images/menu-items/mushroom-meal.webp" },
+            { "id": 505, "name": "نابولي", "price": 50, "image": "assets/images/menu-items/napoli-meal.webp" },
+            { "id": 506, "name": "الأكيف", "price": 50, "image": "assets/images/menu-items/akef-meal.webp" }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "🥙 صفائح",
+          "items": [
+            { "id": 601, "name": "صفيحة العاصمة", "price": 40, "image": "assets/images/menu-items/safiha-capital.webp" },
+            { "id": 602, "name": "صفيحة كريسبي", "price": 40, "image": "assets/images/menu-items/safiha-crispy.webp" },
+            { "id": 603, "name": "صفيحة بيتزا", "price": 40, "image": "assets/images/menu-items/safiha-pizza.webp" }
+          ]
+        },
+        {
+          "id": 7,
+          "name": "🍰 حلويات",
+          "items": [
+            { "id": 701, "name": "حلى لاتيه", "price": 15, "image": "assets/images/menu-items/latte-dessert.webp" },
+            { "id": 702, "name": "ليزي كيك", "price": 15, "image": "assets/images/menu-items/lazy-cake.webp" },
+            { "id": 703, "name": "باونتي كيك", "price": 20, "image": "assets/images/menu-items/bounty-cake.webp" },
+            { "id": 704, "name": "تشيزكيك", "price": 20, "image": "assets/images/menu-items/cheesecake.webp" },
+            { "id": 705, "name": "موس نوتيلا", "price": 20, "image": "assets/images/menu-items/nutella-mousse.webp" },
+            { "id": 706, "name": "كريب نوتيلا", "price": 20, "image": "assets/images/menu-items/nutella-crepe.webp" },
+            { "id": 707, "name": "كريب فوتوشيني", "price": 20, "image": "assets/images/menu-items/fettuccine-crepe.webp" },
+            { "id": 708, "name": "لقيمات", "price": 20, "image": "assets/images/menu-items/luqaimat.webp" },
+            { "id": 709, "name": "وافل", "price": 25, "image": "assets/images/menu-items/waffle.webp" },
+            { "id": 710, "name": "كنافة نوتيلا", "price": 25, "image": "assets/images/menu-items/kunafa-nutella.webp" }
+          ]
+        },
+        {
+          "id": 8,
+          "name": "☕ مشروبات ساخنة",
+          "items": [
+            { "id": 801, "name": "زهورات", "price": 5, "image": "assets/images/menu-items/herbs.webp" },
+            { "id": 802, "name": "شاي", "price": 5, "image": "assets/images/menu-items/tea.webp" },
+            { "id": 803, "name": "نسكافيه", "price": 7, "image": "assets/images/menu-items/nescafe.webp" },
+            { "id": 804, "name": "كابتشينو", "price": 7, "image": "assets/images/menu-items/cappuccino.webp" },
+            { "id": 805, "name": "شوكو", "price": 7, "image": "assets/images/menu-items/choco.webp" },
+            { "id": 806, "name": "قهوة", "price": 8, "image": "assets/images/menu-items/coffee.webp" },
+            { "id": 807, "name": "هوت شوكليت", "price": 12, "image": "assets/images/menu-items/hot-chocolate.webp" },
+            { "id": 808, "name": "نوتيلا كافية", "price": 12, "image": "assets/images/menu-items/nutella-coffee.webp" }
+          ]
+        },
+        {
+          "id": 9,
+          "name": "🧊 مشروبات باردة",
+          "items": [
+            { "id": 901, "name": "مشروب غازي", "price": "7 / 10", "image": "assets/images/menu-items/soda.webp" },
+            { "id": 902, "name": "ميلك شيك", "price": 10, "image": "assets/images/menu-items/milkshake.webp" },
+            { "id": 903, "name": "مانجا", "price": 15, "image": "assets/images/menu-items/mango.webp" },
+            { "id": 904, "name": "ليمون ونعنع", "price": 15, "image": "assets/images/menu-items/lemon-mint.webp" },
+            { "id": 905, "name": "ميلك شيك نوتيلا", "price": 15, "image": "assets/images/menu-items/nutella-milkshake.webp" },
+            { "id": 906, "name": "آيس كافيه", "price": 15, "image": "assets/images/menu-items/ice-coffee.webp" },
+            { "id": 907, "name": "كوكتيل فواكه", "price": 15, "image": "assets/images/menu-items/cocktail.webp" },
+            { "id": 908, "name": "فخفخينا", "price": 20, "image": "assets/images/menu-items/fakhfakhina.webp" }
+          ]
+        },
+        {
+          "id": 10,
+          "name": "🍨 بوظة",
+          "items": [
+            { "id": 1001, "name": "آيسكريم", "price": 10, "image": "assets/images/menu-items/ice-cream.webp" },
+            { "id": 1002, "name": "آيسكريم نوتيلا", "price": 15, "image": "assets/images/menu-items/ice-cream-nutella.webp" }
+          ]
+        },
+        {
+          "id": 11,
+          "name": "🚬 أرجيلة",
+          "items": [
+            { "id": 1101, "name": "أرجيلة فاخر", "price": 70, "image": "assets/images/menu-items/hookah.webp" },
+            { "id": 1102, "name": "أرجيلة فرش", "price": 90, "image": "assets/images/menu-items/hookah-fresh.webp" }
+          ]
+        }
+      ]
+    }
+  }
