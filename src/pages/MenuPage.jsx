@@ -1,9 +1,11 @@
+import { memo, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '../context/LanguageContext';
 import MenuContainer from '../components/menu/MenuContainer';
 
 function MenuPage() {
   const { t } = useLanguage();
+  const menuKey = useMemo(() => Date.now().toString(36), []);
 
   return (
     <>
@@ -17,7 +19,6 @@ function MenuPage() {
             <span className="title-en">{t('menuTitle')}</span>
           </h2>
           <p className="page-subtitle">{t('menuSubtitle')}</p>
-
           <div className="order-buttons">
             <a href="https://wa.me/+970594804807" target="_blank" rel="noopener noreferrer" className="order-btn whatsapp-btn">
               <i className="fab fa-whatsapp"></i> <span>{t('orderViaWhatsApp')}</span>
@@ -26,9 +27,8 @@ function MenuPage() {
               <i className="fas fa-phone-alt"></i> <span>{t('callNow')}</span>
             </a>
           </div>
-
           <div id="menu-container">
-            <MenuContainer key={Math.random()} />
+            <MenuContainer key={menuKey} />
           </div>
         </div>
       </section>
@@ -36,4 +36,4 @@ function MenuPage() {
   );
 }
 
-export default MenuPage;
+export default memo(MenuPage);

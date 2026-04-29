@@ -6,11 +6,46 @@
     <meta name="description" content="مطعم العاصمة في النصيرات - غزة يقدم أشهى الوجبات السريعة والمشاوي" />
     <meta name="google-site-verification" content="ZePMrccEI_mKXvgqI4uJsRuyv08kpk_qlB1QU6Xp2k4" />
     <link rel="canonical" href="https://alassema-restaurant.netlify.app/" />
-    <link rel="icon" type="image/jpeg" href="/assets/images/logo.webp" />
+    <link rel="icon" type="image/webp" href="/assets/images/logo.webp" />
+
+    <!-- DNS Prefetch & Preconnect -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+
+    <!-- Font loading optimization -->
+    <link 
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" 
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'; this.onload=null;"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <!-- Font Awesome with deferred loading -->
+    <link 
+      rel="stylesheet" 
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+      media="print"
+      onload="this.media='all'; this.onload=null;"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    </noscript>
+
+    <!-- Preload critical images -->
+    <link rel="preload" as="image" href="/assets/images/logo.webp" />
+    <link rel="preload" as="image" href="/assets/images/hero-bg-new.webp" fetchpriority="high" />
+
+    <!-- Preload critical CSS & JS -->
+    <link rel="preload" as="style" href="/src/styles/style.css" />
+    <link rel="preload" as="script" href="/src/main.jsx" />
+
     <title>مطعم العاصمة | ALASEMA</title>
   </head>
   <body>

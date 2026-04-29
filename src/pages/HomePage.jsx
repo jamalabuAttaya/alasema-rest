@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '../context/LanguageContext';
 import HeroSection from '../components/home/HeroSection';
@@ -20,4 +21,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default memo(HomePage);

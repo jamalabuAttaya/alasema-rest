@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '../context/LanguageContext';
 import GalleryGrid from '../components/gallery/GalleryGrid';
@@ -24,4 +25,4 @@ function GalleryPage() {
   );
 }
 
-export default GalleryPage;
+export default memo(GalleryPage);

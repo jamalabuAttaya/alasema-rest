@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '../context/LanguageContext';
 import AboutStory from '../components/about/AboutStory';
@@ -27,4 +28,4 @@ function AboutPage() {
   );
 }
 
-export default AboutPage;
+export default memo(AboutPage);

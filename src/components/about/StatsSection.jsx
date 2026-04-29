@@ -1,14 +1,19 @@
+import { memo, useMemo } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
+
+const STAT_NUMBERS = Object.freeze(['15+', '50+', '10k+', '24/7']);
+const STAT_KEYS = Object.freeze(['yearsExperience', 'foodItems', 'happyCustomers', 'continuousService']);
 
 function StatsSection() {
   const { t } = useLanguage();
 
-  const stats = [
-    { number: '15+', label: t('yearsExperience') },
-    { number: '50+', label: t('foodItems') },
-    { number: '10k+', label: t('happyCustomers') },
-    { number: '24/7', label: t('continuousService') },
-  ];
+  const stats = useMemo(() => 
+    STAT_NUMBERS.map((number, i) => ({
+      number,
+      label: t(STAT_KEYS[i]),
+    })),
+    [t]
+  );
 
   return (
     <div className="stats-section">
@@ -22,4 +27,4 @@ function StatsSection() {
   );
 }
 
-export default StatsSection;
+export default memo(StatsSection);
