@@ -1,27 +1,69 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
-import { useState, useEffect, lazy, Suspense, useCallback, memo } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { pageVariants, useIsMobile } from './animations/motionVariants';
+import { lazy, memo, Suspense, useCallback, useEffect, useState } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import {
+  AnimatePresence,
+  motion,
+  MotionConfig,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+} from 'framer-motion';
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
+import SplashScreen from './components/layout/SplashScreen';
+import { useLanguage } from './context/LanguageContext';
 
 const HomePage = lazy(() => import('./pages/HomePage'));
 const MenuPage = lazy(() => import('./pages/MenuPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const GalleryPage = lazy(() => import('./pages/GalleryPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+const SPLASH_SESSION_KEY = 'alasema_splash_seen_v2';
 
-import SplashScreen from './components/layout/SplashScreen';
-import Header from './components/layout/Header';
-import Footer from './components/layout/Footer';
+function shouldShowSplash() {
+  try {
+    return sessionStorage.getItem(SPLASH_SESSION_KEY) !== '1';
+  } catch {
+    return true;
+  }
+}
 
-const PageLoader = memo(() => <div className="loading-spinner" style={{ padding: '60px 0' }}><div className="spinner" /></div>);
+const PageLoader = memo(function PageLoader() {
+  const { t } = useLanguage();
+
+  return (
+    <div className="loading-spinner page-loader" role="status" aria-live="polite">
+      <div className="spinner" aria-hidden="true" />
+      <span className="sr-only">{t('loadingPage')}</span>
+    </div>
+  );
+});
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [pathname]);
+
+  return null;
+}
 
 function AnimatedRoutes() {
   const location = useLocation();
-  const isMobile = useIsMobile();
+  const reduceMotion = useReducedMotion();
+
   return (
-    <AnimatePresence mode="wait">
-      <motion.div key={location.pathname} variants={pageVariants} initial="initial" animate="animate" exit="exit"
-        transition={{ duration: isMobile ? 0.25 : 0.4 }}>
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        className="route-shell"
+        key={location.pathname}
+        initial={reduceMotion ? false : { opacity: 0, y: 18, scale: 0.995 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={reduceMotion ? undefined : { opacity: 0, y: -10, scale: 0.998 }}
+        transition={{ duration: reduceMotion ? 0 : 0.38, ease: [0.22, 1, 0.36, 1] }}
+      >
         <Suspense fallback={<PageLoader />}>
           <Routes location={location}>
             <Route path="/" element={<HomePage />} />
@@ -29,6 +71,7 @@ function AnimatedRoutes() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/gallery" element={<GalleryPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
       </motion.div>
@@ -37,31 +80,34 @@ function AnimatedRoutes() {
 }
 
 function App() {
-  const [showSplash, setShowSplash] = useState(true);
-  const [contentVisible, setContentVisible] = useState(false);
-  const location = useLocation();
+  const { t } = useLanguage();
+  const [showSplash, setShowSplash] = useState(shouldShowSplash);
+  const { scrollYProgress } = useScroll();
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.25 });
 
-  const handleSplashEnd = useCallback(() => {
+  const finishSplash = useCallback(() => {
+    try {
+      sessionStorage.setItem(SPLASH_SESSION_KEY, '1');
+    } catch {
+      // The intro can still be closed when browser storage is unavailable.
+    }
     setShowSplash(false);
-    requestAnimationFrame(() => { requestAnimationFrame(() => { setContentVisible(true); }); });
   }, []);
 
-  useEffect(() => {
-    setShowSplash(true); setContentVisible(false);
-    const timer = setTimeout(handleSplashEnd, 2000);
-    return () => clearTimeout(timer);
-  }, [location.pathname, handleSplashEnd]);
-
   return (
-    <>
-      <AnimatePresence>{showSplash && <SplashScreen />}</AnimatePresence>
-      <motion.div className={`main-content${contentVisible ? ' visible' : ''}`}
-        initial={{ opacity: 0 }} animate={{ opacity: contentVisible ? 1 : 0 }} transition={{ duration: 0.5 }}>
-        <Header />
-        <main><AnimatedRoutes /></main>
-        <Footer />
-      </motion.div>
-    </>
+    <MotionConfig reducedMotion="user">
+      <motion.div className="scroll-progress" style={{ scaleX: smoothProgress }} aria-hidden="true" />
+      <AnimatePresence>
+        {showSplash && <SplashScreen key="splash" onFinish={finishSplash} />}
+      </AnimatePresence>
+      <a className="skip-link" href="#main-content">{t('skipToContent')}</a>
+      <ScrollToTop />
+      <Header />
+      <main id="main-content">
+        <AnimatedRoutes />
+      </main>
+      <Footer />
+    </MotionConfig>
   );
 }
 

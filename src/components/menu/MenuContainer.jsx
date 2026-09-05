@@ -1,229 +1,215 @@
-import { useState, useEffect, useCallback, memo, lazy, Suspense } from 'react';
+import { lazy, memo, Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
+import { FaImage, FaWhatsapp } from 'react-icons/fa';
 import { useLanguage } from '../../context/LanguageContext';
-import { menuItemVariants, spring, springSoft, tapEffect, blurLoad, useIsMobile, viewportOnce } from '../../animations/motionVariants';
+import {
+  blurLoad,
+  menuItemVariants,
+  spring,
+  springSoft,
+  tapEffect,
+  useIsMobile,
+  viewportOnce,
+} from '../../animations/motionVariants';
 
-// ⚡ Lazy Loading للمودال (لا يحمل إلا عند الحاجة)
 const Modal = lazy(() => import('../common/Modal'));
+const WHATSAPP_NUMBER = '970594804807';
+const menuCache = new Map();
 
-// ⚡ مكون العنصر الواحد - memo يمنع إعادة تصيير كل العناصر
+function isValidMenu(data) {
+  return Boolean(
+    data
+    && typeof data === 'object'
+    && Array.isArray(data.categories)
+    && data.categories.every((category) => (
+      category
+      && typeof category.name === 'string'
+      && Array.isArray(category.items)
+      && category.items.every((item) => (
+        item
+        && typeof item.name === 'string'
+        && (typeof item.price === 'number' || typeof item.price === 'string')
+      ))
+    ))
+  );
+}
+
 const MenuItem = memo(({ item, onSelect, formatPrice, index, isMobile }) => (
-  <motion.div 
-    className="menu-item-card" 
+  <motion.button
+    type="button"
+    className="menu-item-card"
     onClick={() => onSelect(item)}
-    role="button"
-    tabIndex={0}
-    onKeyDown={(e) => e.key === 'Enter' && onSelect(item)}
     custom={index}
     initial="hidden"
     whileInView="visible"
     viewport={viewportOnce(isMobile)}
     variants={menuItemVariants(isMobile)}
-    whileHover={isMobile ? {} : { x: 5, backgroundColor: '#fff', transition: springSoft }}
+    whileHover={isMobile ? undefined : {
+      y: -2,
+      backgroundColor: 'rgba(216, 174, 94, 0.055)',
+      transition: springSoft,
+    }}
     whileTap={tapEffect}
+    aria-label={`${item.name} - ${formatPrice(item.price)}`}
   >
-    <div className="menu-item-info">
-      <h4>{item.name}</h4>
-    </div>
-    <div className="menu-item-price">
-      {formatPrice(item.price)}
-    </div>
-  </motion.div>
+    <span className="menu-item-info"><strong>{item.name}</strong></span>
+    <span className="menu-item-price">{formatPrice(item.price)}</span>
+  </motion.button>
 ));
 
-// ⚡ مكون الفئة الواحدة - مع Blur للصورة في حال وجودها
-const CategoryBlock = memo(({ category, onSelect, formatPrice, catIndex, isMobile }) => (
-  <motion.div 
+const CategoryBlock = memo(({ category, onSelect, formatPrice, categoryIndex, isMobile }) => (
+  <motion.section
     className="category-block"
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={viewportOnce(isMobile)}
-    transition={{ delay: catIndex * (isMobile ? 0.05 : 0.1), ...spring }}
+    transition={{ delay: categoryIndex * (isMobile ? 0.03 : 0.06), ...spring }}
+    aria-labelledby={`category-${category.id}`}
   >
-    <motion.h3 
-      className="category-title"
-      initial={{ opacity: 0, x: -10 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={viewportOnce(isMobile)}
-      transition={{ delay: 0.1, ...spring }}
-    >
-      {category.name}
-    </motion.h3>
+    <h2 id={`category-${category.id}`} className="category-title">{category.name}</h2>
     <div className="items-grid">
-      {category.items.map((item, i) => (
-        <MenuItem 
-          key={item.id} 
-          item={item} 
-          onSelect={onSelect} 
-          formatPrice={formatPrice} 
-          index={i}
+      {category.items.map((item, index) => (
+        <MenuItem
+          key={item.id}
+          item={item}
+          onSelect={onSelect}
+          formatPrice={formatPrice}
+          index={index}
           isMobile={isMobile}
         />
       ))}
     </div>
-  </motion.div>
+  </motion.section>
 ));
-
-// ⚡ مكون التحميل مع أنيميشن
-const LoadingSpinner = memo(({ text }) => (
-  <motion.div 
-    className="loading-spinner"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.3 }}
-  >
-    <div className="spinner" />
-    <p>{text}</p>
-  </motion.div>
-));
-
-// ⚡ مكون الخطأ
-const ErrorDisplay = memo(({ message }) => (
-  <motion.div 
-    className="loading-spinner"
-    initial={{ opacity: 0, scale: 0.95 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={spring}
-  >
-    <p style={{ color: 'red' }}>❌ {message}</p>
-  </motion.div>
-));
-
-// ⚡ كاش للمنيو المحمل
-let menuCache = {};
 
 function MenuContainer() {
   const [menuData, setMenuData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const { t, language } = useLanguage();
   const isMobile = useIsMobile();
 
-  // ⚡ useCallback لتثبيت الدوال
-  const fetchMenu = useCallback(async () => {
-    // ⚡ استخدام الكاش إذا المنيو محمل مسبقاً
-    if (menuCache[language]) {
-      setMenuData(menuCache[language]);
+  useEffect(() => {
+    const cachedMenu = menuCache.get(language);
+    if (cachedMenu) {
+      setMenuData(cachedMenu);
       setLoading(false);
-      return;
+      setError(false);
+      return undefined;
     }
 
+    const controller = new AbortController();
+    const menuFile = language === 'ar' ? '/data/menu.json' : '/data/menu-en.json';
     setLoading(true);
-    setError(null);
+    setError(false);
 
-    try {
-      const menuFile = language === 'ar' ? '/data/menu.json' : '/data/menu-en.json';
-      const response = await fetch(menuFile);
-      if (!response.ok) throw new Error('Failed to load menu');
-      const data = await response.json();
-      
-      // ⚡ تخزين في الكاش
-      menuCache[language] = data.restaurant;
-      setMenuData(data.restaurant);
-    } catch (err) {
-      // ⚡ Fallback للعربي إذا فشل الإنجليزي
-      if (language === 'en' && !menuCache['en']) {
-        try {
-          const response = await fetch('/data/menu.json');
-          if (!response.ok) throw new Error('Failed to load menu');
-          const data = await response.json();
-          menuCache['en'] = data.restaurant;
-          setMenuData(data.restaurant);
-        } catch (err2) {
-          setError(err2.message);
+    fetch(menuFile, { signal: controller.signal, credentials: 'same-origin' })
+      .then((response) => {
+        if (!response.ok) throw new Error('Menu request failed');
+        return response.json();
+      })
+      .then((data) => {
+        if (!isValidMenu(data.restaurant)) throw new Error('Invalid menu data');
+        menuCache.set(language, data.restaurant);
+        setMenuData(data.restaurant);
+      })
+      .catch((requestError) => {
+        if (requestError.name !== 'AbortError') {
+          setMenuData(null);
+          setError(true);
         }
-      } else {
-        setError(err.message);
-      }
-    } finally {
-      setLoading(false);
-    }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setLoading(false);
+      });
+
+    return () => controller.abort();
   }, [language]);
 
-  useEffect(() => {
-    fetchMenu();
-  }, [fetchMenu]);
-
-  // ⚡ useCallback لتثبيت دالة تنسيق السعر
   const formatPrice = useCallback((price) => {
-    return typeof price === 'number' ? `${price} ₪` : price;
+    const value = String(price).trim();
+    return value.includes('₪') ? value : `${value} ₪`;
   }, []);
 
-  // ⚡ useCallback لتثبيت دالة اختيار العنصر
-  const handleSelectItem = useCallback((item) => {
-    setSelectedItem(item);
-  }, []);
+  const orderUrl = useMemo(() => {
+    if (!selectedItem) return '';
+    const message = language === 'ar'
+      ? `مرحبًا، أريد طلب: ${selectedItem.name} - ${formatPrice(selectedItem.price)}`
+      : `Hello, I would like to order: ${selectedItem.name} - ${formatPrice(selectedItem.price)}`;
+    const url = new URL(`https://wa.me/${WHATSAPP_NUMBER}`);
+    url.searchParams.set('text', message);
+    return url.toString();
+  }, [selectedItem, language, formatPrice]);
 
-  // ⚡ useCallback لتثبيت دالة الإغلاق
-  const handleCloseModal = useCallback(() => {
-    setSelectedItem(null);
-  }, []);
+  if (loading) {
+    return (
+      <div className="loading-spinner" role="status" aria-live="polite">
+        <div className="spinner" aria-hidden="true" />
+        <p>{t('loadingMenu')}</p>
+      </div>
+    );
+  }
 
-  if (loading) return <LoadingSpinner text={t('loadingMenu')} />;
-  if (error) return <ErrorDisplay message={language === 'ar' ? 'خطأ في تحميل القائمة' : 'Error loading menu'} />;
-  if (!menuData) return null;
+  if (error || !menuData) {
+    return <p className="error-message" role="alert">{t('menuLoadError')}</p>;
+  }
 
   return (
     <>
-      {menuData.categories.map((category, i) => (
-        <CategoryBlock 
-          key={category.id} 
-          category={category} 
-          onSelect={handleSelectItem} 
-          formatPrice={formatPrice} 
-          catIndex={i}
+      {menuData.categories.map((category, index) => (
+        <CategoryBlock
+          key={category.id}
+          category={category}
+          onSelect={setSelectedItem}
+          formatPrice={formatPrice}
+          categoryIndex={index}
           isMobile={isMobile}
         />
       ))}
 
-      {menuData.note && (
-        <motion.div 
-          className="menu-note-display"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewportOnce(isMobile)}
-          transition={spring}
-        >
-          <p>📌 {menuData.note}</p>
-        </motion.div>
-      )}
+      {menuData.note && <p className="menu-note-display">{menuData.note}</p>}
 
       {selectedItem && (
         <Suspense fallback={null}>
-          <Modal onClose={handleCloseModal}>
-            <motion.img 
-              src={`/${selectedItem.image}`} 
-              alt={selectedItem.name}
-              loading="lazy"
-              onError={(e) => { e.target.src = '/assets/images/placeholder.webp'; }}
-              variants={blurLoad}
-              initial="hidden"
-              animate="visible"
-              onLoad={(e) => { e.target.style.filter = 'blur(0px)'; }}
-            />
-            <motion.div 
-              className="gallery-modal-info"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, ...spring }}
-            >
-              <h3>{selectedItem.name}</h3>
-              <div className="gallery-modal-price">
-                {formatPrice(selectedItem.price)}
+          <Modal
+            onClose={() => setSelectedItem(null)}
+            ariaLabel={selectedItem.name}
+            closeLabel={t('closeModal')}
+          >
+            {selectedItem.image ? (
+              <motion.img
+                src={`/${selectedItem.image}`}
+                alt={selectedItem.name}
+                loading="lazy"
+                decoding="async"
+                variants={blurLoad}
+                initial="hidden"
+                animate="visible"
+              />
+            ) : (
+              <div className="modal-image-placeholder">
+                <FaImage aria-hidden="true" />
+                <span>{t('imageUnavailable')}</span>
               </div>
-              <motion.a 
-                href="https://wa.me/+970594804807" 
+            )}
+
+            <div className="gallery-modal-info">
+              <h2>{selectedItem.name}</h2>
+              <div className="gallery-modal-price">{formatPrice(selectedItem.price)}</div>
+              <motion.a
+                href={orderUrl}
                 className="gallery-order-btn"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.03 }}
                 whileTap={tapEffect}
                 transition={springSoft}
               >
-                <i className="fab fa-whatsapp"></i> {t('orderViaWhatsApp')}
+                <FaWhatsapp aria-hidden="true" />
+                <span>{t('orderViaWhatsApp')}</span>
               </motion.a>
-            </motion.div>
+            </div>
           </Modal>
         </Suspense>
       )}
@@ -231,5 +217,4 @@ function MenuContainer() {
   );
 }
 
-// ⚡ تصدير مع memo للمكون بالكامل
 export default memo(MenuContainer);

@@ -1,24 +1,24 @@
 import { memo } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '../context/LanguageContext';
 import AboutStory from '../components/about/AboutStory';
 import MissionVision from '../components/about/MissionVision';
 import StatsSection from '../components/about/StatsSection';
+import Seo from '../components/common/Seo';
+import PageHeading from '../components/common/PageHeading';
 
 function AboutPage() {
   const { t } = useLanguage();
 
   return (
     <>
-      <Helmet>
-        <title>{t('about')} | {t('restaurantName')}</title>
-      </Helmet>
+      <Seo titleKey="aboutSeoTitle" descriptionKey="aboutPageDescription" path="/about" />
       <section className="about-page">
         <div className="container">
-          <h2 className="page-title">
-            <span className="title-ar">{t('aboutTitle')}</span>
-            <span className="title-en">{t('aboutTitle')}</span>
-          </h2>
+          <PageHeading
+            eyebrow={t('aboutKicker')}
+            title={t('aboutTitle')}
+            subtitle={t('aboutPageIntro')}
+          />
           <AboutStory />
           <MissionVision />
           <StatsSection />

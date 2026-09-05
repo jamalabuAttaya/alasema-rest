@@ -45,9 +45,9 @@
             { "id": 406, "name": "دجاج بالمشروم والكريمة", "price": 35, "image": "assets/images/menu-items/mushroom-chicken.webp" },
             { "id": 407, "name": "مسخن فلسطيني", "price": 35, "image": "assets/images/menu-items/musakhan.webp" },
             { "id": 408, "name": "رول الذهبي", "price": 35, "image": "assets/images/menu-items/golden-roll.webp" },
-            { "id": 409, "name": "نابولي", "price": 35, "image": "assets/images/menu-items/napoli.webp" },
+            { "id": 409, "name": "نابولي", "price": 35, "image": null },
             { "id": 410, "name": "تشيكن بيستو", "price": 35, "image": "assets/images/menu-items/pesto-chicken.webp" },
-            { "id": 411, "name": "الأكيف", "price": 35, "image": "assets/images/menu-items/akef.webp" }
+            { "id": 411, "name": "الأكيف", "price": 35, "image": "assets/images/menu-items/Iakef.webp" }
           ]
         },
         {
@@ -58,7 +58,7 @@
             { "id": 502, "name": "تشيكن بيتزا", "price": 50, "image": "assets/images/menu-items/chicken-pizza-meal.webp" },
             { "id": 503, "name": "دجاج بالذرة والجبنة", "price": 50, "image": "assets/images/menu-items/corn-cheese-meal.webp" },
             { "id": 504, "name": "دجاج بالمشروم والكريمة", "price": 50, "image": "assets/images/menu-items/mushroom-meal.webp" },
-            { "id": 505, "name": "نابولي", "price": 50, "image": "assets/images/menu-items/napoli-meal.webp" },
+            { "id": 505, "name": "نابولي", "price": 50, "image": null },
             { "id": 506, "name": "الأكيف", "price": 50, "image": "assets/images/menu-items/akef-meal.webp" }
           ]
         },
@@ -66,9 +66,9 @@
           "id": 6,
           "name": "🥙 صفائح",
           "items": [
-            { "id": 601, "name": "صفيحة العاصمة", "price": 40, "image": "assets/images/menu-items/safiha-capital.webp" },
-            { "id": 602, "name": "صفيحة كريسبي", "price": 40, "image": "assets/images/menu-items/safiha-crispy.webp" },
-            { "id": 603, "name": "صفيحة بيتزا", "price": 40, "image": "assets/images/menu-items/safiha-pizza.webp" }
+            { "id": 601, "name": "صفيحة العاصمة", "price": 40, "image": null },
+            { "id": 602, "name": "صفيحة كريسبي", "price": 40, "image": null },
+            { "id": 603, "name": "صفيحة بيتزا", "price": 40, "image": null }
           ]
         },
         {
@@ -127,8 +127,8 @@
           "id": 11,
           "name": "🚬 أرجيلة",
           "items": [
-            { "id": 1101, "name": "أرجيلة فاخر", "price": 70, "image": "assets/images/menu-items/hookah.webp" },
-            { "id": 1102, "name": "أرجيلة فرش", "price": 90, "image": "assets/images/menu-items/hookah-fresh.webp" }
+            { "id": 1101, "name": "أرجيلة فاخر", "price": 70, "image": null },
+            { "id": 1102, "name": "أرجيلة فرش", "price": 90, "image": null }
           ]
         }
       ]

@@ -1,75 +1,122 @@
 import { memo, useMemo } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { motion } from 'framer-motion';
+import {
+  FaEnvelope,
+  FaFacebookF,
+  FaInstagram,
+  FaMapMarkerAlt,
+  FaPhone,
+  FaWhatsapp,
+} from 'react-icons/fa';
 import { useLanguage } from '../context/LanguageContext';
 import ContactForm from '../components/contact/ContactForm';
+import Seo from '../components/common/Seo';
+import PageHeading from '../components/common/PageHeading';
+import { spring } from '../animations/motionVariants';
 
 const SOCIAL_LINKS = Object.freeze([
-  { href: 'https://www.facebook.com/asemarest/', icon: 'fa-facebook-f', className: 'social-circle fb', label: 'Facebook' },
-  { href: 'https://www.instagram.com/asemarest', icon: 'fa-instagram', className: 'social-circle ig', label: 'Instagram' },
-  { href: 'https://wa.me/+970594804807', icon: 'fa-whatsapp', className: 'social-circle wa', label: 'WhatsApp' },
-  { href: '#', icon: 'fa-tiktok', className: 'social-circle tt', label: 'TikTok' },
+  { href: 'https://www.facebook.com/asemarest/', Icon: FaFacebookF, className: 'social-circle fb', label: 'Facebook' },
+  { href: 'https://www.instagram.com/asemarest', Icon: FaInstagram, className: 'social-circle ig', label: 'Instagram' },
+  { href: 'https://wa.me/970594804807', Icon: FaWhatsapp, className: 'social-circle wa', label: 'WhatsApp' },
 ]);
 
-const CONTACT_ICONS = Object.freeze(['fa-map-marker-alt', 'fa-phone', 'fa-envelope', 'fab fa-whatsapp']);
-const ADDRESS_TEXT = 'النصيرات - دوار أبو صرار، غزة';
-const PHONE_TEXT = '+970594804807';
+const PHONE_TEXT = '+970 59 480 4807';
+const PHONE_LINK = '+970594804807';
 const EMAIL_TEXT = 'asemarest@gmail.com';
 
 function ContactPage() {
   const { t } = useLanguage();
-
   const contactDetails = useMemo(() => [
-    { icon: CONTACT_ICONS[0], title: t('address'), text: ADDRESS_TEXT },
-    { icon: CONTACT_ICONS[1], title: t('phone'), text: PHONE_TEXT },
-    { icon: CONTACT_ICONS[2], title: t('email'), text: EMAIL_TEXT },
-    { icon: CONTACT_ICONS[3], title: t('whatsapp'), text: PHONE_TEXT },
+    { Icon: FaMapMarkerAlt, title: t('address'), text: t('addressText') },
+    { Icon: FaPhone, title: t('phone'), text: PHONE_TEXT, href: `tel:${PHONE_LINK}` },
+    { Icon: FaEnvelope, title: t('email'), text: EMAIL_TEXT, href: `mailto:${EMAIL_TEXT}` },
+    { Icon: FaWhatsapp, title: t('whatsapp'), text: PHONE_TEXT, href: 'https://wa.me/970594804807', external: true },
   ], [t]);
 
   return (
     <>
-      <Helmet>
-        <title>{t('contact')} | {t('restaurantName')}</title>
-      </Helmet>
+      <Seo titleKey="contactSeoTitle" descriptionKey="contactDescription" path="/contact" />
+
       <section className="contact-page">
         <div className="container">
-          <h2 className="page-title">
-            <span className="title-ar">{t('getInTouch')}</span>
-            <span className="title-en">{t('getInTouch')}</span>
-          </h2>
-          <div className="contact-wrapper">
+          <PageHeading
+            eyebrow={t('contactKicker')}
+            title={t('getInTouch')}
+            subtitle={t('contactPageIntro')}
+          />
+
+          <motion.div
+            className="contact-wrapper"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.12 }}
+            transition={spring}
+          >
             <div className="contact-info-side">
               <div className="contact-details-list">
-                {contactDetails.map((item, index) => (
-                  <div className="contact-detail-item" key={index}>
-                    <i className={`fas ${item.icon}`} aria-hidden="true"></i>
+                {contactDetails.map(({ Icon, title, text, href, external }) => (
+                  <div className="contact-detail-item" key={title}>
+                    <span className="contact-icon"><Icon aria-hidden="true" /></span>
                     <div>
-                      <h4>{item.title}</h4>
-                      <p>{item.text}</p>
+                      <h2>{title}</h2>
+                      {href ? (
+                        <a
+                          href={href}
+                          {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                        >
+                          {text}
+                        </a>
+                      ) : <p>{text}</p>}
                     </div>
                   </div>
                 ))}
               </div>
+
               <div className="social-links-section">
-                <h3>{t('followUs')}</h3>
+                <h2>{t('followUs')}</h2>
                 <div className="social-icons-large">
-                  {SOCIAL_LINKS.map((social, i) => (
-                    <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className={social.className} aria-label={social.label}>
-                      <i className={`fab ${social.icon}`} aria-hidden="true"></i>
+                  {SOCIAL_LINKS.map(({ href, Icon, className, label }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={className}
+                      aria-label={label}
+                    >
+                      <Icon aria-hidden="true" />
                     </a>
                   ))}
                 </div>
               </div>
             </div>
+
             <div className="contact-form-side">
               <ContactForm />
             </div>
-          </div>
-          <div className="map-section">
-            <h3>{t('ourLocation')}</h3>
+          </motion.div>
+
+          <motion.div
+            className="map-section"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ delay: 0.08, ...spring }}
+          >
+            <h2>{t('ourLocation')}</h2>
             <div className="map-container">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d217124.38565334815!2d34.32847665!3d31.44847635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14fd7f2a2a5b5b5b%3A0x0!2zMzHCsDI2JzU0LjUiTiAzNMKwMjAnMzAuMCJF!5e0!3m2!1sar!2s!4v1700000000000!5m2!1sar!2s" width="100%" height="250" style={{border:0}} allowFullScreen="" loading="lazy" title="Location Map" />
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d217124.38565334815!2d34.32847665!3d31.44847635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14fd7f2a2a5b5b5b%3A0x0!2zMzHCsDI2JzU0LjUiTiAzNMKwMjAnMzAuMCJF!5e0!3m2!1sar!2s!4v1700000000000!5m2!1sar!2s"
+                width="100%"
+                height="250"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+                title={t('ourLocation')}
+              />
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </>

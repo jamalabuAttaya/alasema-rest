@@ -1,19 +1,13 @@
 import { memo } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { useLanguage } from '../context/LanguageContext';
 import HeroSection from '../components/home/HeroSection';
 import FeaturedDishes from '../components/home/FeaturedDishes';
 import QuickFeatures from '../components/home/QuickFeatures';
+import Seo from '../components/common/Seo';
 
 function HomePage() {
-  const { t } = useLanguage();
-
   return (
     <>
-      <Helmet>
-        <title>{t('restaurantName')} | ALASEMA</title>
-        <meta name="description" content="مطعم العاصمة في النصيرات - غزة يقدم أشهى الوجبات السريعة والمشاوي" />
-      </Helmet>
+      <Seo titleKey="homeSeoTitle" descriptionKey="homeDescription" />
       <HeroSection />
       <FeaturedDishes />
       <QuickFeatures />

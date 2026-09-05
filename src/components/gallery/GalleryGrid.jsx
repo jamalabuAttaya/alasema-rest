@@ -1,67 +1,149 @@
-import { useState, useCallback, memo, lazy, Suspense } from 'react';
+import { lazy, memo, Suspense, useCallback, useState } from 'react';
 import { motion } from 'framer-motion';
+import { FaEnvelope, FaPhone, FaWhatsapp } from 'react-icons/fa';
 import { useLanguage } from '../../context/LanguageContext';
-import { blurLoad, tapEffect, useIsMobile, viewportOnce, spring } from '../../animations/motionVariants';
+import { blurLoad, spring, tapEffect, useIsMobile, viewportOnce } from '../../animations/motionVariants';
 
 const Modal = lazy(() => import('../common/Modal'));
 
-const galleryItems = [
-  { title: "Wagyu Ribeye Steak", desc: "مخازن لحم ريبو في كوفيد", price: "₪65.00", img: "/assets/images/gallery-1.webp" },
-  { title: "Grilled Lamb Chops", desc: "كلهل ليفر بومي", price: "₪65.00", img: "/assets/images/gallery-2.webp" },
-  { title: "Mediterranean Meshwi", desc: "الذي أفرز", price: "₪65.00", img: "/assets/images/gallery-3.webp" },
-  { title: "Truffle Wagyu Burger", desc: "طبق بريجا وورغو", price: "₪65.00", img: "/assets/images/gallery-4.webp" }
-];
+const GALLERY_ITEMS = Object.freeze([
+  {
+    titleAr: 'دجاج مكسيكي حار',
+    titleEn: 'Spicy Mexican Chicken',
+    descAr: 'ساندويش دجاج بنكهة مكسيكية حارة.',
+    descEn: 'Chicken sandwich with spicy Mexican flavors.',
+    price: 30,
+    image: '/assets/images/menu-items/mexican-chicken.webp',
+  },
+  {
+    titleAr: 'تشيكن برجر',
+    titleEn: 'Chicken Burger',
+    descAr: 'برجر دجاج يقدم مع البطاطا والمخللات.',
+    descEn: 'Chicken burger served with fries and pickles.',
+    price: 30,
+    image: '/assets/images/menu-items/chicken-burger.webp',
+  },
+  {
+    titleAr: 'لقيمات',
+    titleEn: 'Luqaimat',
+    descAr: 'لقيمات طازجة من قائمة الحلويات.',
+    descEn: 'Fresh luqaimat from our dessert menu.',
+    price: 20,
+    image: '/assets/images/menu-items/luqaimat.webp',
+  },
+  {
+    titleAr: 'كوكتيل فواكه',
+    titleEn: 'Fruit Cocktail',
+    descAr: 'كوكتيل فواكه بارد ومنعش.',
+    descEn: 'A cold and refreshing fruit cocktail.',
+    price: 15,
+    image: '/assets/images/menu-items/cocktail.webp',
+  },
+]);
 
-const GalleryImage = memo(({ item, onSelect, index, isMobile }) => {
+const GalleryImage = memo(({ item, onSelect, index, isMobile, language }) => {
   const [loaded, setLoaded] = useState(false);
+  const title = language === 'ar' ? item.titleAr : item.titleEn;
+
   return (
-    <motion.div className="gallery-item" onClick={() => onSelect(item)} role="button" tabIndex={0}
-      onKeyDown={(e) => e.key === 'Enter' && onSelect(item)} aria-label={item.title}
-      initial={{ opacity: 0, scale: 0.92 }} whileInView={{ opacity: 1, scale: 1 }}
-      viewport={viewportOnce(isMobile)} transition={{ delay: index * 0.08, ...spring }}
-      whileHover={isMobile ? {} : { scale: 1.03 }} whileTap={tapEffect}>
-      <motion.img src={item.img} alt={item.title} loading="lazy" decoding="async"
-        onLoad={() => setLoaded(true)} onError={(e) => { e.target.src = '/assets/images/placeholder.webp'; setLoaded(true); }}
-        variants={blurLoad} initial="hidden" animate={loaded ? "visible" : "hidden"}
-        whileHover={isMobile ? {} : { scale: 1.08 }} />
-      <div className="gallery-overlay"><h4>{item.title}</h4><p>{item.price}</p></div>
-    </motion.div>
+    <motion.button
+      type="button"
+      className="gallery-item"
+      onClick={() => onSelect(item)}
+      aria-label={title}
+      initial={{ opacity: 0, scale: 0.94 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={viewportOnce(isMobile)}
+      transition={{ delay: index * 0.06, ...spring }}
+      whileHover={isMobile ? undefined : { scale: 1.02 }}
+      whileTap={tapEffect}
+    >
+      <motion.img
+        src={item.image}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        onLoad={() => setLoaded(true)}
+        variants={blurLoad}
+        initial="hidden"
+        animate={loaded ? 'visible' : 'hidden'}
+      />
+      <span className="gallery-overlay">
+        <strong>{title}</strong>
+        <span>{item.price} ₪</span>
+      </span>
+    </motion.button>
   );
 });
 
-const ModalContent = memo(({ selectedImage, t }) => (
-  <>
-    <motion.img src={selectedImage.img} alt={selectedImage.title} loading="lazy" decoding="async"
-      onError={(e) => { e.target.src = '/assets/images/placeholder.webp'; }}
-      variants={blurLoad} initial="hidden" animate="visible" />
-    <div className="gallery-modal-info">
-      <h3>{selectedImage.title}</h3><p>{selectedImage.desc}</p>
-      <div className="gallery-modal-price">{selectedImage.price}</div>
-      <div className="gallery-modal-contact">
-        <p><i className="fas fa-envelope"></i> asemarest@gmail.com</p>
-        <p><i className="fas fa-phone"></i> +970594804807</p>
-      </div>
-      <motion.a href="https://wa.me/+970594804807" className="gallery-order-btn" target="_blank" rel="noopener noreferrer"
-        whileHover={{ scale: 1.05 }} whileTap={tapEffect}>
-        <i className="fab fa-whatsapp"></i> {t('orderNow')}
-      </motion.a>
-    </div>
-  </>
-));
-
 function GalleryGrid() {
   const [selectedImage, setSelectedImage] = useState(null);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const isMobile = useIsMobile();
-  const handleSelect = useCallback((item) => setSelectedImage(item), []);
-  const handleClose = useCallback(() => setSelectedImage(null), []);
+  const closeModal = useCallback(() => setSelectedImage(null), []);
+
+  const selectedTitle = selectedImage
+    ? (language === 'ar' ? selectedImage.titleAr : selectedImage.titleEn)
+    : '';
+  const selectedDescription = selectedImage
+    ? (language === 'ar' ? selectedImage.descAr : selectedImage.descEn)
+    : '';
+  const selectedOrderUrl = selectedImage
+    ? `https://wa.me/970594804807?text=${encodeURIComponent(
+        language === 'ar'
+          ? `مرحباً، أود طلب ${selectedTitle}`
+          : `Hello, I would like to order ${selectedTitle}`
+      )}`
+    : 'https://wa.me/970594804807';
 
   return (
     <>
       <div className="gallery-grid">
-        {galleryItems.map((item, index) => <GalleryImage key={index} item={item} onSelect={handleSelect} index={index} isMobile={isMobile} />)}
+        {GALLERY_ITEMS.map((item, index) => (
+          <GalleryImage
+            key={item.image}
+            item={item}
+            onSelect={setSelectedImage}
+            index={index}
+            isMobile={isMobile}
+            language={language}
+          />
+        ))}
       </div>
-      {selectedImage && <Suspense fallback={null}><Modal onClose={handleClose}><ModalContent selectedImage={selectedImage} t={t} /></Modal></Suspense>}
+
+      {selectedImage && (
+        <Suspense fallback={null}>
+          <Modal onClose={closeModal} ariaLabel={selectedTitle} closeLabel={t('closeModal')}>
+            <motion.img
+              src={selectedImage.image}
+              alt={selectedTitle}
+              loading="lazy"
+              decoding="async"
+              variants={blurLoad}
+              initial="hidden"
+              animate="visible"
+            />
+            <div className="gallery-modal-info">
+              <h2>{selectedTitle}</h2>
+              <p>{selectedDescription}</p>
+              <div className="gallery-modal-price">{selectedImage.price} ₪</div>
+              <div className="gallery-modal-contact">
+                <p><FaEnvelope aria-hidden="true" /> asemarest@gmail.com</p>
+                <p><FaPhone aria-hidden="true" /> +970 59 480 4807</p>
+              </div>
+              <a
+                href={selectedOrderUrl}
+                className="gallery-order-btn"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaWhatsapp aria-hidden="true" />
+                <span>{t('orderNow')}</span>
+              </a>
+            </div>
+          </Modal>
+        </Suspense>
+      )}
     </>
   );
 }

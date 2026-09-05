@@ -1,32 +1,14 @@
 import { memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { FaCode, FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import { useLanguage } from '../../context/LanguageContext';
 
-// ⚡ روابط السوشيال ميديا ثابتة خارج المكون
 const SOCIAL_LINKS = Object.freeze([
-  { 
-    href: 'https://www.facebook.com/asemarest/', 
-    icon: 'fa-facebook-f', 
-    label: 'Facebook' 
-  },
-  { 
-    href: 'https://www.instagram.com/asemarest', 
-    icon: 'fa-instagram', 
-    label: 'Instagram' 
-  },
-  { 
-    href: 'https://wa.me/+970594804807', 
-    icon: 'fa-whatsapp', 
-    label: 'WhatsApp' 
-  },
-  { 
-    href: '#', 
-    icon: 'fa-tiktok', 
-    label: 'TikTok' 
-  },
+  { href: 'https://www.facebook.com/asemarest/', Icon: FaFacebookF, label: 'Facebook' },
+  { href: 'https://www.instagram.com/asemarest', Icon: FaInstagram, label: 'Instagram' },
+  { href: 'https://wa.me/970594804807', Icon: FaWhatsapp, label: 'WhatsApp' },
 ]);
 
-// ⚡ روابط التنقل ثابتة خارج المكون
 const FOOTER_LINKS = Object.freeze([
   { to: '/', key: 'home' },
   { to: '/menu', key: 'menu' },
@@ -35,32 +17,16 @@ const FOOTER_LINKS = Object.freeze([
   { to: '/contact', key: 'contact' },
 ]);
 
-// ⚡ مكون أيقونة السوشيال ميديا
-const SocialIcon = memo(({ href, icon, label }) => (
-  <a 
-    href={href} 
-    target="_blank" 
-    rel="noopener noreferrer"
-    aria-label={label}
-  >
-    <i className={`fab ${icon}`} aria-hidden="true"></i>
+const SocialIcon = memo(({ href, Icon, label }) => (
+  <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
+    <Icon aria-hidden="true" />
   </a>
-));
-
-// ⚡ مكون رابط الفوتر
-const FooterLink = memo(({ to, text }) => (
-  <Link to={to}>{text}</Link>
 ));
 
 function Footer() {
   const { t } = useLanguage();
-
-  // ⚡ useMemo للروابط المترجمة
-  const footerLinks = useMemo(() => 
-    FOOTER_LINKS.map(link => ({
-      ...link,
-      text: t(link.key),
-    })),
+  const footerLinks = useMemo(
+    () => FOOTER_LINKS.map((link) => ({ ...link, text: t(link.key) })),
     [t]
   );
 
@@ -68,51 +34,40 @@ function Footer() {
     <footer>
       <div className="container">
         <div className="footer-content">
-          {/* ⚡ لوجو الفوتر */}
           <div className="footer-logo">
-            <img 
-              src="/assets/images/logo.webp" 
-              alt="ALASEMA" 
-              width="55"
-              height="55"
-              loading="lazy"
-            />
-            <h3>ALASEMA</h3>
+            <img src="/assets/images/logo.webp" alt="" width="55" height="55" loading="lazy" />
+            <h2>ALASEMA</h2>
             <p>{t('restaurantName')}</p>
           </div>
 
-          {/* ⚡ روابط التنقل */}
-          <nav className="footer-links" aria-label="Footer navigation">
-            {footerLinks.map(link => (
-              <FooterLink 
-                key={link.to} 
-                to={link.to} 
-                text={link.text} 
-              />
+          <nav className="footer-links" aria-label={t('footerNavigation')}>
+            {footerLinks.map((link) => (
+              <Link key={link.to} to={link.to}>{link.text}</Link>
             ))}
           </nav>
 
-          {/* ⚡ أيقونات السوشيال ميديا */}
           <div className="social-icons">
-            {SOCIAL_LINKS.map((social, index) => (
-              <SocialIcon 
-                key={index}
-                href={social.href}
-                icon={social.icon}
-                label={social.label}
-              />
+            {SOCIAL_LINKS.map((social) => (
+              <SocialIcon key={social.label} {...social} />
             ))}
           </div>
         </div>
 
-        {/* ⚡ حقوق النشر */}
         <div className="footer-bottom">
           <p>{t('copyright')}</p>
+          <a
+            className="developer-credit"
+            href="https://jamalabuattaya-portfolio.netlify.app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaCode aria-hidden="true" />
+            <span>{t('developerCredit')}</span>
+          </a>
         </div>
       </div>
     </footer>
   );
 }
 
-// ⚡ memo يمنع إعادة تصيير الفوتر (مكون ثابت)
 export default memo(Footer);

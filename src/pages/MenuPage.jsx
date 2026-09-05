@@ -1,34 +1,49 @@
-import { memo, useMemo } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { memo } from 'react';
+import { FaPhoneAlt, FaWhatsapp } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import MenuContainer from '../components/menu/MenuContainer';
+import Seo from '../components/common/Seo';
+import PageHeading from '../components/common/PageHeading';
 
 function MenuPage() {
   const { t } = useLanguage();
-  const menuKey = useMemo(() => Date.now().toString(36), []);
 
   return (
     <>
-      <Helmet>
-        <title>{t('menu')} | {t('restaurantName')}</title>
-      </Helmet>
+      <Seo titleKey="menuSeoTitle" descriptionKey="menuDescription" path="/menu" />
+
       <section className="menu-page">
         <div className="container">
-          <h2 className="page-title">
-            <span className="title-ar">{t('menuTitle')}</span>
-            <span className="title-en">{t('menuTitle')}</span>
-          </h2>
-          <p className="page-subtitle">{t('menuSubtitle')}</p>
-          <div className="order-buttons">
-            <a href="https://wa.me/+970594804807" target="_blank" rel="noopener noreferrer" className="order-btn whatsapp-btn">
-              <i className="fab fa-whatsapp"></i> <span>{t('orderViaWhatsApp')}</span>
+          <PageHeading
+            eyebrow={t('menuKicker')}
+            title={t('menuTitle')}
+            subtitle={t('menuSubtitle')}
+          />
+
+          <motion.div
+            className="order-buttons"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.24, duration: 0.45 }}
+          >
+            <a
+              href="https://wa.me/970594804807"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="order-btn whatsapp-btn"
+            >
+              <FaWhatsapp aria-hidden="true" />
+              <span>{t('orderViaWhatsApp')}</span>
             </a>
-            <a href="tel:0594804807" className="order-btn call-btn">
-              <i className="fas fa-phone-alt"></i> <span>{t('callNow')}</span>
+            <a href="tel:+970594804807" className="order-btn call-btn">
+              <FaPhoneAlt aria-hidden="true" />
+              <span>{t('callNow')}</span>
             </a>
-          </div>
+          </motion.div>
+
           <div id="menu-container">
-            <MenuContainer key={menuKey} />
+            <MenuContainer />
           </div>
         </div>
       </section>

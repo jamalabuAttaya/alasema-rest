@@ -1,29 +1,28 @@
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 
 function LanguageSwitch() {
   const { language, setLanguage } = useLanguage();
 
-  const switchToAr = useCallback(() => setLanguage('ar'), [setLanguage]);
-  const switchToEn = useCallback(() => setLanguage('en'), [setLanguage]);
-
   return (
-    <>
-      <button 
+    <div className="lang-switch" role="group" aria-label="Language">
+      <button
+        type="button"
         className={`lang-btn${language === 'ar' ? ' active' : ''}`}
-        onClick={switchToAr}
-        aria-label="العربية"
+        onClick={() => setLanguage('ar')}
+        aria-pressed={language === 'ar'}
       >
         عربي
       </button>
-      <button 
+      <button
+        type="button"
         className={`lang-btn${language === 'en' ? ' active' : ''}`}
-        onClick={switchToEn}
-        aria-label="English"
+        onClick={() => setLanguage('en')}
+        aria-pressed={language === 'en'}
       >
         EN
       </button>
-    </>
+    </div>
   );
 }
 

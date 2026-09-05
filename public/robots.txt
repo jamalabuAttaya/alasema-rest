@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /data/
 
-Sitemap: https://alassema-restaurant.netlify.app/sitemap.xml
+Sitemap: https://alasema-rest.vercel.app/sitemap.xml

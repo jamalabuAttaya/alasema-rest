@@ -45,9 +45,9 @@
             { "id": 406, "name": "Mushroom & Cream Chicken", "price": 35, "image": "assets/images/menu-items/mushroom-chicken.webp" },
             { "id": 407, "name": "Palestinian Musakhan", "price": 35, "image": "assets/images/menu-items/musakhan.webp" },
             { "id": 408, "name": "Golden Roll", "price": 35, "image": "assets/images/menu-items/golden-roll.webp" },
-            { "id": 409, "name": "Napoli", "price": 35, "image": "assets/images/menu-items/napoli.webp" },
+            { "id": 409, "name": "Napoli", "price": 35, "image": null },
             { "id": 410, "name": "Pesto Chicken", "price": 35, "image": "assets/images/menu-items/pesto-chicken.webp" },
-            { "id": 411, "name": "Al-Akeef", "price": 35, "image": "assets/images/menu-items/akef.webp" }
+            { "id": 411, "name": "Al-Akeef", "price": 35, "image": "assets/images/menu-items/Iakef.webp" }
           ]
         },
         {
@@ -58,7 +58,7 @@
             { "id": 502, "name": "Chicken Pizza Meal", "price": 50, "image": "assets/images/menu-items/chicken-pizza-meal.webp" },
             { "id": 503, "name": "Corn & Cheese Chicken Meal", "price": 50, "image": "assets/images/menu-items/corn-cheese-meal.webp" },
             { "id": 504, "name": "Mushroom & Cream Chicken Meal", "price": 50, "image": "assets/images/menu-items/mushroom-meal.webp" },
-            { "id": 505, "name": "Napoli Meal", "price": 50, "image": "assets/images/menu-items/napoli-meal.webp" },
+            { "id": 505, "name": "Napoli Meal", "price": 50, "image": null },
             { "id": 506, "name": "Al-Akeef Meal", "price": 50, "image": "assets/images/menu-items/akef-meal.webp" }
           ]
         },
@@ -66,9 +66,9 @@
           "id": 6,
           "name": "🥙 Pies",
           "items": [
-            { "id": 601, "name": "Capital Pie", "price": 40, "image": "assets/images/menu-items/safiha-capital.webp" },
-            { "id": 602, "name": "Crispy Pie", "price": 40, "image": "assets/images/menu-items/safiha-crispy.webp" },
-            { "id": 603, "name": "Pizza Pie", "price": 40, "image": "assets/images/menu-items/safiha-pizza.webp" }
+            { "id": 601, "name": "Capital Pie", "price": 40, "image": null },
+            { "id": 602, "name": "Crispy Pie", "price": 40, "image": null },
+            { "id": 603, "name": "Pizza Pie", "price": 40, "image": null }
           ]
         },
         {
@@ -127,8 +127,8 @@
           "id": 11,
           "name": "🚬 Hookah",
           "items": [
-            { "id": 1101, "name": "Premium Hookah", "price": 70, "image": "assets/images/menu-items/hookah.webp" },
-            { "id": 1102, "name": "Fresh Hookah", "price": 90, "image": "assets/images/menu-items/hookah-fresh.webp" }
+            { "id": 1101, "name": "Premium Hookah", "price": 70, "image": null },
+            { "id": 1102, "name": "Fresh Hookah", "price": 90, "image": null }
           ]
         }
       ]

@@ -1,9 +1,10 @@
-import { useState, useEffect, useCallback, useMemo, memo } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import { FaBars, FaTimes } from 'react-icons/fa';
+import { motion, useMotionValueEvent, useReducedMotion, useScroll } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 import LanguageSwitch from '../common/LanguageSwitch';
 
-// ⚡ روابط التنقل ثابتة خارج المكون (لا تعاد إنشاؤها كل تصيير)
 const NAV_LINKS = Object.freeze([
   { path: '/', key: 'home' },
   { path: '/menu', key: 'menu' },
@@ -12,13 +13,12 @@ const NAV_LINKS = Object.freeze([
   { path: '/contact', key: 'contact' },
 ]);
 
-// ⚡ مكون رابط القائمة - memo يمنع إعادة تصيير كل الروابط
 const NavItem = memo(({ path, text, onClick }) => (
   <li>
-    <NavLink 
+    <NavLink
       to={path}
       onClick={onClick}
-      className={({ isActive }) => isActive ? 'active' : ''}
+      className={({ isActive }) => (isActive ? 'active' : undefined)}
     >
       {text}
     </NavLink>
@@ -27,90 +27,99 @@ const NavItem = memo(({ path, text, onClick }) => (
 
 function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [headerHidden, setHeaderHidden] = useState(false);
+  const [headerScrolled, setHeaderScrolled] = useState(false);
   const { t } = useLanguage();
   const location = useLocation();
+  const reduceMotion = useReducedMotion();
+  const { scrollY } = useScroll();
 
-  // ⚡ useCallback لتثبيت دالة التبديل
-  const toggleMenu = useCallback(() => {
-    setMobileMenuOpen(prev => !prev);
-  }, []);
+  const closeMenu = useCallback(() => setMobileMenuOpen(false), []);
+  const toggleMenu = useCallback(() => setMobileMenuOpen((open) => !open), []);
 
-  const closeMenu = useCallback(() => {
-    setMobileMenuOpen(false);
-  }, []);
-
-  // ⚡ إغلاق القائمة عند تغيير المسار
   useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [location.pathname]);
+    closeMenu();
+  }, [location.pathname, closeMenu]);
 
-  // ⚡ useMemo لروابط التنقل المترجمة (تتغير فقط عند تغيير اللغة)
-  const navLinks = useMemo(() => 
-    NAV_LINKS.map(link => ({
-      ...link,
-      text: t(link.key),
-    })),
+  useEffect(() => {
+    if (!mobileMenuOpen) return undefined;
+
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') closeMenu();
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [mobileMenuOpen, closeMenu]);
+
+  useEffect(() => {
+    if (mobileMenuOpen) setHeaderHidden(false);
+  }, [mobileMenuOpen]);
+
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    setHeaderScrolled(latest > 18);
+    setHeaderHidden(!mobileMenuOpen && latest > previous && latest > 150);
+  });
+
+  const navLinks = useMemo(
+    () => NAV_LINKS.map((link) => ({ ...link, text: t(link.key) })),
     [t]
   );
 
   return (
-    <header>
-      <div className="container">
-        {/* ⚡ Preload للصفحة الرئيسية عند hover */}
-        <Link 
-          to="/" 
-          className="logo-link"
-          onMouseEnter={() => {
-            // ⚡ تحميل مسبق للصفحة الرئيسية
-            const preloadLink = document.createElement('link');
-            preloadLink.rel = 'prefetch';
-            preloadLink.href = '/';
-            document.head.appendChild(preloadLink);
-          }}
-        >
-          <img 
-            src="/assets/images/logo.webp" 
-            alt="ALASEMA" 
+    <motion.header
+      className={headerScrolled ? 'header-scrolled' : undefined}
+      animate={{ y: headerHidden && !reduceMotion ? '-105%' : '0%' }}
+      transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div className="container header-main-row">
+        <Link to="/" className="logo-link" aria-label={t('restaurantName')}>
+          <img
+            src="/assets/images/logo.webp"
+            alt=""
             className="header-logo-img"
             width="45"
             height="45"
-            loading="eager"
           />
           <div className="logo-text">
-            <h1>ALASEMA</h1>
-            <p>{t('restaurantName')}</p>
+            <span className="logo-title">ALASEMA</span>
+            <span className="logo-subtitle">{t('restaurantName')}</span>
           </div>
         </Link>
 
-        <div className="lang-switch">
-          <LanguageSwitch />
-        </div>
+        <LanguageSwitch />
 
-        <button 
-          className="mobile-menu-btn" 
+        <button
+          type="button"
+          className="mobile-menu-btn"
           onClick={toggleMenu}
-          aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-label={mobileMenuOpen ? t('closeMenu') : t('openMenu')}
           aria-expanded={mobileMenuOpen}
+          aria-controls="primary-navigation"
         >
-          <i className="fas fa-bars"></i>
+          {mobileMenuOpen ? <FaTimes aria-hidden="true" /> : <FaBars aria-hidden="true" />}
         </button>
-      </div>
 
-      <nav className={mobileMenuOpen ? 'show' : ''} role="navigation">
-        <ul>
-          {navLinks.map(link => (
-            <NavItem 
-              key={link.path}
-              path={link.path}
-              text={link.text}
-              onClick={closeMenu}
-            />
-          ))}
-        </ul>
-      </nav>
-    </header>
+        <nav
+          id="primary-navigation"
+          className={`header-nav${mobileMenuOpen ? ' show' : ''}`}
+          aria-label={t('primaryNavigation')}
+        >
+          <ul>
+            {navLinks.map((link) => (
+              <NavItem
+                key={link.path}
+                path={link.path}
+                text={link.text}
+                onClick={closeMenu}
+              />
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </motion.header>
   );
 }
 
-// ⚡ memo يمنع إعادة تصيير الهيدر إذا لم تتغير اللغة أو المسار
 export default memo(Header);

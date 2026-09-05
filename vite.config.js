@@ -3,41 +3,31 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  
   css: {
     postcss: './postcss.config.js',
     devSourcemap: false,
   },
-
   build: {
     minify: 'terser',
+    sourcemap: false,
     terserOptions: {
       compress: {
         drop_console: true,
         drop_debugger: true,
       },
     },
-    
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          router: ['react-router-dom'],
-          helmet: ['react-helmet-async'],
-        },
-      },
-    },
-    
-    chunkSizeWarningLimit: 100,
   },
-
   server: {
-    open: true,
-    cors: true,
+    host: '127.0.0.1',
+    open: false,
+    cors: false,
+    strictPort: true,
   },
-
   preview: {
+    host: '127.0.0.1',
     port: 4173,
-    open: true,
+    open: false,
+    cors: false,
+    strictPort: true,
   },
 });

@@ -1,72 +1,92 @@
-import { useEffect, memo, useCallback } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { FaTimes } from 'react-icons/fa';
 
-// ⚡ معرّف فريد للـ portal
 const PORTAL_ID = 'modal-root';
 
-// ⚡ دالة مساعدة لإنشاء عنصر portal مرة واحدة
 function getPortalRoot() {
   let portalRoot = document.getElementById(PORTAL_ID);
+
   if (!portalRoot) {
     portalRoot = document.createElement('div');
     portalRoot.id = PORTAL_ID;
     document.body.appendChild(portalRoot);
   }
+
   return portalRoot;
 }
 
-function Modal({ children, onClose }) {
-  // ⚡ useCallback لتثبيت الدوال
-  const handleKeyDown = useCallback((e) => {
-    if (e.key === 'Escape') {
-      onClose();
-    }
-  }, [onClose]);
+function Modal({ children, onClose, ariaLabel, closeLabel }) {
+  const dialogRef = useRef(null);
+  const closeButtonRef = useRef(null);
 
-  const handleBackdropClick = useCallback((e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
+  const handleBackdropClick = useCallback((event) => {
+    if (event.target === event.currentTarget) onClose();
   }, [onClose]);
-
-  const stopPropagation = useCallback((e) => {
-    e.stopPropagation();
-  }, []);
 
   useEffect(() => {
-    // ⚡ استخدام passive listener لتحسين الأداء
-    document.addEventListener('keydown', handleKeyDown, { passive: true });
-    
-    // ⚡ حفظ overflow الأصلي
+    const previouslyFocused = document.activeElement;
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        onClose();
+        return;
+      }
+
+      if (event.key !== 'Tab' || !dialogRef.current) return;
+
+      const focusable = dialogRef.current.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+
+      if (focusable.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = originalOverflow;
+      previouslyFocused?.focus?.();
     };
-  }, [handleKeyDown]);
+  }, [onClose]);
 
-  // ⚡ استخدام createPortal لتصيير المودال خارج شجرة DOM الرئيسية
-  // هذا يمنع إعادة التصيير الكاملة للصفحة
   return createPortal(
-    <div 
-      className="gallery-modal show" 
-      onClick={handleBackdropClick}
-      role="dialog"
-      aria-modal="true"
-    >
-      <div className="gallery-modal-content" onClick={stopPropagation}>
-        <span 
-          className="gallery-modal-close" 
+    <div className="gallery-modal show" onMouseDown={handleBackdropClick}>
+      <div
+        ref={dialogRef}
+        className="gallery-modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-label={ariaLabel}
+      >
+        <button
+          ref={closeButtonRef}
+          type="button"
+          className="gallery-modal-close"
           onClick={onClose}
-          role="button"
-          tabIndex={0}
-          aria-label="Close modal"
-          onKeyDown={(e) => e.key === 'Enter' && onClose()}
+          aria-label={closeLabel}
         >
-          &times;
-        </span>
+          <FaTimes aria-hidden="true" />
+        </button>
         {children}
       </div>
     </div>,
@@ -74,5 +94,4 @@ function Modal({ children, onClose }) {
   );
 }
 
-// ⚡ memo يمنع إعادة التصيير إذا لم تتغير props
 export default memo(Modal);
