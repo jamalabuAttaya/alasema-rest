@@ -1,136 +1,537 @@
 {
-    "restaurant": {
-      "name": "ALASEMA Restaurant",
-      "location": "Nuseirat - Abu Srrar Roundabout",
-      "note": "All sandwiches and meals include (Chips + Pickles + Ketchup)",
-      "categories": [
-        {
-          "id": 1,
-          "name": "🥗 Salads",
-          "items": [
-            { "id": 101, "name": "Turkish Salad", "price": 5, "image": "assets/images/menu-items/turkish-salad.webp" },
-            { "id": 102, "name": "Coleslaw", "price": 5, "image": "assets/images/menu-items/coleslaw.webp" },
-            { "id": 103, "name": "Red Cabbage with Mayo", "price": 5, "image": "assets/images/menu-items/red-cabbage.webp" },
-            { "id": 104, "name": "Corn with Mayo", "price": 7, "image": "assets/images/menu-items/corn-mayo.webp" },
-            { "id": 105, "name": "Capital Salad", "price": 15, "image": "assets/images/menu-items/capital-salad.webp" }
-          ]
-        },
-        {
-          "id": 2,
-          "name": "🍟 Appetizers",
-          "items": [
-            { "id": 201, "name": "Cheese Sticks", "price": 10, "image": "assets/images/menu-items/cheese-sticks.webp" },
-            { "id": 202, "name": "Fries", "price": 10, "image": "assets/images/menu-items/fries.webp" },
-            { "id": 203, "name": "Musakhan Roll", "price": 10, "image": "assets/images/menu-items/musakhan-roll.webp" }
-          ]
-        },
-        {
-          "id": 3,
-          "name": "🍔 Burgers",
-          "items": [
-            { "id": 301, "name": "Chicken Burger", "price": 30, "image": "assets/images/menu-items/chicken-burger.webp" },
-            { "id": 302, "name": "Beef Burger", "price": 30, "image": "assets/images/menu-items/beef-burger.webp" },
-            { "id": 303, "name": "Crispy Burger", "price": 35, "image": "assets/images/menu-items/crispy-burger.webp" }
-          ]
-        },
-        {
-          "id": 4,
-          "name": "🥪 Sandwiches",
-          "items": [
-            { "id": 401, "name": "Spicy Mexican Chicken", "price": 30, "image": "assets/images/menu-items/mexican-chicken.webp" },
-            { "id": 402, "name": "Shish Tawook", "price": 30, "image": "assets/images/menu-items/shish-tawook.webp" },
-            { "id": 403, "name": "Chicken Curry", "price": 30, "image": "assets/images/menu-items/chicken-curry.webp" },
-            { "id": 404, "name": "Chicken Pizza", "price": 30, "image": "assets/images/menu-items/chicken-pizza.webp" },
-            { "id": 405, "name": "Corn & Cheese Chicken", "price": 30, "image": "assets/images/menu-items/corn-cheese-chicken.webp" },
-            { "id": 406, "name": "Mushroom & Cream Chicken", "price": 35, "image": "assets/images/menu-items/mushroom-chicken.webp" },
-            { "id": 407, "name": "Palestinian Musakhan", "price": 35, "image": "assets/images/menu-items/musakhan.webp" },
-            { "id": 408, "name": "Golden Roll", "price": 35, "image": "assets/images/menu-items/golden-roll.webp" },
-            { "id": 409, "name": "Napoli", "price": 35, "image": null },
-            { "id": 410, "name": "Pesto Chicken", "price": 35, "image": "assets/images/menu-items/pesto-chicken.webp" },
-            { "id": 411, "name": "Al-Akeef", "price": 35, "image": "assets/images/menu-items/Iakef.webp" }
-          ]
-        },
-        {
-          "id": 5,
-          "name": "🍽️ Meals",
-          "items": [
-            { "id": 501, "name": "Escalopini", "price": 50, "image": "assets/images/menu-items/escalopini.webp" },
-            { "id": 502, "name": "Chicken Pizza Meal", "price": 50, "image": "assets/images/menu-items/chicken-pizza-meal.webp" },
-            { "id": 503, "name": "Corn & Cheese Chicken Meal", "price": 50, "image": "assets/images/menu-items/corn-cheese-meal.webp" },
-            { "id": 504, "name": "Mushroom & Cream Chicken Meal", "price": 50, "image": "assets/images/menu-items/mushroom-meal.webp" },
-            { "id": 505, "name": "Napoli Meal", "price": 50, "image": null },
-            { "id": 506, "name": "Al-Akeef Meal", "price": 50, "image": "assets/images/menu-items/akef-meal.webp" }
-          ]
-        },
-        {
-          "id": 6,
-          "name": "🥙 Pies",
-          "items": [
-            { "id": 601, "name": "Capital Pie", "price": 40, "image": null },
-            { "id": 602, "name": "Crispy Pie", "price": 40, "image": null },
-            { "id": 603, "name": "Pizza Pie", "price": 40, "image": null }
-          ]
-        },
-        {
-          "id": 7,
-          "name": "🍰 Desserts",
-          "items": [
-            { "id": 701, "name": "Latte Dessert", "price": 15, "image": "assets/images/menu-items/latte-dessert.webp" },
-            { "id": 702, "name": "Lazy Cake", "price": 15, "image": "assets/images/menu-items/lazy-cake.webp" },
-            { "id": 703, "name": "Bounty Cake", "price": 20, "image": "assets/images/menu-items/bounty-cake.webp" },
-            { "id": 704, "name": "Cheesecake", "price": 20, "image": "assets/images/menu-items/cheesecake.webp" },
-            { "id": 705, "name": "Nutella Mousse", "price": 20, "image": "assets/images/menu-items/nutella-mousse.webp" },
-            { "id": 706, "name": "Nutella Crepe", "price": 20, "image": "assets/images/menu-items/nutella-crepe.webp" },
-            { "id": 707, "name": "Fettuccine Crepe", "price": 20, "image": "assets/images/menu-items/fettuccine-crepe.webp" },
-            { "id": 708, "name": "Luqaimat", "price": 20, "image": "assets/images/menu-items/luqaimat.webp" },
-            { "id": 709, "name": "Waffle", "price": 25, "image": "assets/images/menu-items/waffle.webp" },
-            { "id": 710, "name": "Kunafa Nutella", "price": 25, "image": "assets/images/menu-items/kunafa-nutella.webp" }
-          ]
-        },
-        {
-          "id": 8,
-          "name": "☕ Hot Drinks",
-          "items": [
-            { "id": 801, "name": "Herbal Tea", "price": 5, "image": "assets/images/menu-items/herbs.webp" },
-            { "id": 802, "name": "Tea", "price": 5, "image": "assets/images/menu-items/tea.webp" },
-            { "id": 803, "name": "Nescafe", "price": 7, "image": "assets/images/menu-items/nescafe.webp" },
-            { "id": 804, "name": "Cappuccino", "price": 7, "image": "assets/images/menu-items/cappuccino.webp" },
-            { "id": 805, "name": "Hot Chocolate", "price": 7, "image": "assets/images/menu-items/choco.webp" },
-            { "id": 806, "name": "Coffee", "price": 8, "image": "assets/images/menu-items/coffee.webp" },
-            { "id": 807, "name": "Hot Chocolate Deluxe", "price": 12, "image": "assets/images/menu-items/hot-chocolate.webp" },
-            { "id": 808, "name": "Nutella Coffee", "price": 12, "image": "assets/images/menu-items/nutella-coffee.webp" }
-          ]
-        },
-        {
-          "id": 9,
-          "name": "🧊 Cold Drinks",
-          "items": [
-            { "id": 901, "name": "Soft Drink", "price": "7 / 10", "image": "assets/images/menu-items/soda.webp" },
-            { "id": 902, "name": "Milkshake", "price": 10, "image": "assets/images/menu-items/milkshake.webp" },
-            { "id": 903, "name": "Mango", "price": 15, "image": "assets/images/menu-items/mango.webp" },
-            { "id": 904, "name": "Lemon & Mint", "price": 15, "image": "assets/images/menu-items/lemon-mint.webp" },
-            { "id": 905, "name": "Nutella Milkshake", "price": 15, "image": "assets/images/menu-items/nutella-milkshake.webp" },
-            { "id": 906, "name": "Ice Coffee", "price": 15, "image": "assets/images/menu-items/ice-coffee.webp" },
-            { "id": 907, "name": "Fruit Cocktail", "price": 15, "image": "assets/images/menu-items/cocktail.webp" },
-            { "id": 908, "name": "Fakhfakhina", "price": 20, "image": "assets/images/menu-items/fakhfakhina.webp" }
-          ]
-        },
-        {
-          "id": 10,
-          "name": "🍨 Ice Cream",
-          "items": [
-            { "id": 1001, "name": "Ice Cream", "price": 10, "image": "assets/images/menu-items/ice-cream.webp" },
-            { "id": 1002, "name": "Nutella Ice Cream", "price": 15, "image": "assets/images/menu-items/ice-cream-nutella.webp" }
-          ]
-        },
-        {
-          "id": 11,
-          "name": "🚬 Hookah",
-          "items": [
-            { "id": 1101, "name": "Premium Hookah", "price": 70, "image": null },
-            { "id": 1102, "name": "Fresh Hookah", "price": 90, "image": null }
-          ]
-        }
-      ]
-    }
+  "restaurant": {
+    "name": "ALASEMA Restaurant",
+    "location": "Nuseirat - Abu Srrar Roundabout",
+    "note": "All sandwiches and meals include (Chips + Pickles + Ketchup)",
+    "categories": [
+      {
+        "id": 1,
+        "name": "Salads",
+        "items": [
+          {
+            "id": 101,
+            "name": "Turkish Salad",
+            "price": 7,
+            "image": "assets/images/menu-reference/item-01.jpg"
+          },
+          {
+            "id": 102,
+            "name": "Coleslaw",
+            "price": 7,
+            "image": "assets/images/menu-reference/item-02.jpg"
+          },
+          {
+            "id": 103,
+            "name": "Red Cabbage with Mayonnaise",
+            "price": 7,
+            "image": "assets/images/menu-reference/item-03.jpg"
+          },
+          {
+            "id": 104,
+            "name": "Corn with Mayonnaise",
+            "price": 10,
+            "image": "assets/images/menu-reference/item-04.jpg"
+          },
+          {
+            "id": 105,
+            "name": "Alasema Salad",
+            "price": 15,
+            "image": "assets/images/menu-reference/item-05.jpg"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Appetizers",
+        "items": [
+          {
+            "id": 201,
+            "name": "Cheese Sticks",
+            "price": 10,
+            "image": "assets/images/menu-reference/item-06.jpg"
+          },
+          {
+            "id": 202,
+            "name": "Fries",
+            "price": 10,
+            "image": "assets/images/menu-reference/item-07.jpg"
+          },
+          {
+            "id": 203,
+            "name": "Musakhan Roll",
+            "price": 10,
+            "image": "assets/images/menu-reference/item-08.jpg"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Burgers",
+        "items": [
+          {
+            "id": 301,
+            "name": "Chicken Burger",
+            "price": 30,
+            "image": "assets/images/menu-reference/item-09.jpg"
+          },
+          {
+            "id": 302,
+            "name": "Beef Burger",
+            "price": 35,
+            "image": "assets/images/menu-reference/item-09.jpg"
+          },
+          {
+            "id": 303,
+            "name": "Crispy Burger",
+            "price": 35,
+            "image": "assets/images/menu-reference/item-09.jpg"
+          },
+          {
+            "id": 304,
+            "name": "Combo Burger",
+            "price": 35,
+            "image": "assets/images/menu-reference/item-09.jpg"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Pies",
+        "items": [
+          {
+            "id": 401,
+            "name": "Alasema Pie",
+            "price": 45,
+            "image": null
+          },
+          {
+            "id": 402,
+            "name": "Pizza Pie",
+            "price": 45,
+            "image": null
+          },
+          {
+            "id": 403,
+            "name": "Quesadilla Pie",
+            "price": 45,
+            "image": null
+          },
+          {
+            "id": 404,
+            "name": "Crispy Pie",
+            "price": 45,
+            "image": null
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Sandwiches",
+        "items": [
+          {
+            "id": 501,
+            "name": "Chicken Curry",
+            "price": 30,
+            "image": "assets/images/menu-items/chicken-curry.webp"
+          },
+          {
+            "id": 502,
+            "name": "Spicy Mexican Chicken",
+            "price": 30,
+            "image": "assets/images/menu-items/mexican-chicken.webp"
+          },
+          {
+            "id": 503,
+            "name": "Chicken Pizza",
+            "price": 35,
+            "image": "assets/images/menu-items/chicken-pizza-meal.webp"
+          },
+          {
+            "id": 504,
+            "name": "Corn & Cheese Chicken",
+            "price": 35,
+            "image": "assets/images/menu-items/corn-cheese-meal.webp"
+          },
+          {
+            "id": 505,
+            "name": "Mushroom & Cream Chicken",
+            "price": 35,
+            "image": "assets/images/menu-items/mushroom-meal.webp"
+          },
+          {
+            "id": 506,
+            "name": "Palestinian Musakhan",
+            "price": 35,
+            "image": "assets/images/menu-items/musakhan.webp"
+          },
+          {
+            "id": 507,
+            "name": "Al-Akeef",
+            "price": 35,
+            "image": "assets/images/menu-items/akef-meal.webp"
+          },
+          {
+            "id": 508,
+            "name": "Chicken Fries",
+            "price": 35,
+            "image": null
+          },
+          {
+            "id": 509,
+            "name": "Scaloppini",
+            "price": 35,
+            "image": "assets/images/menu-items/escalopini.webp"
+          },
+          {
+            "id": 510,
+            "name": "Pesto Chicken",
+            "price": 40,
+            "image": "assets/images/menu-items/pesto-chicken.webp"
+          },
+          {
+            "id": 511,
+            "name": "Golden Roll",
+            "price": 40,
+            "image": "assets/images/menu-items/golden-roll.webp"
+          },
+          {
+            "id": 512,
+            "name": "Napoli",
+            "price": 40,
+            "image": null
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Meals",
+        "items": [
+          {
+            "id": 601,
+            "name": "Scaloppini Meal",
+            "price": 50,
+            "image": "assets/images/menu-items/escalopini.webp"
+          },
+          {
+            "id": 602,
+            "name": "Chicken Pizza Meal",
+            "price": 50,
+            "image": "assets/images/menu-items/chicken-pizza-meal.webp"
+          },
+          {
+            "id": 603,
+            "name": "Corn & Cheese Chicken Meal",
+            "price": 50,
+            "image": "assets/images/menu-items/corn-cheese-meal.webp"
+          },
+          {
+            "id": 604,
+            "name": "Mushroom & Cream Chicken Meal",
+            "price": 50,
+            "image": "assets/images/menu-items/mushroom-meal.webp"
+          },
+          {
+            "id": 605,
+            "name": "Napoli Meal",
+            "price": 50,
+            "image": null
+          },
+          {
+            "id": 606,
+            "name": "Al-Akeef Meal",
+            "price": 50,
+            "image": "assets/images/menu-items/akef-meal.webp"
+          },
+          {
+            "id": 607,
+            "name": "Pesto Chicken Meal",
+            "price": 50,
+            "image": "assets/images/menu-items/pesto-chicken.webp"
+          },
+          {
+            "id": 608,
+            "name": "Shish Tawook",
+            "price": 55,
+            "image": "assets/images/menu-items/shish-tawook.webp"
+          },
+          {
+            "id": 609,
+            "name": "Cordon Bleu",
+            "price": 55,
+            "image": null
+          },
+          {
+            "id": 610,
+            "name": "Broasted Chicken Meal",
+            "price": 55,
+            "image": null
+          },
+          {
+            "id": 611,
+            "name": "Grilled Steak",
+            "price": 55,
+            "image": null
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Seafood",
+        "items": [
+          {
+            "id": 701,
+            "name": "Breaded Shrimp",
+            "price": 40,
+            "image": null
+          },
+          {
+            "id": 702,
+            "name": "Shrimp Clay Pot",
+            "price": 60,
+            "image": null
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "name": "Hot Drinks",
+        "items": [
+          {
+            "id": 801,
+            "name": "Herbal Tea",
+            "price": 5,
+            "image": "assets/images/menu-items/herbs.webp"
+          },
+          {
+            "id": 802,
+            "name": "Tea",
+            "price": 5,
+            "image": "assets/images/menu-items/tea.webp"
+          },
+          {
+            "id": 803,
+            "name": "Tea Latte",
+            "price": 7,
+            "image": null
+          },
+          {
+            "id": 804,
+            "name": "Nescafe",
+            "price": 7,
+            "image": "assets/images/menu-items/nescafe.webp"
+          },
+          {
+            "id": 805,
+            "name": "Cappuccino",
+            "price": 7,
+            "image": "assets/images/menu-items/cappuccino.webp"
+          },
+          {
+            "id": 806,
+            "name": "Choco",
+            "price": 7,
+            "image": "assets/images/menu-items/choco.webp"
+          },
+          {
+            "id": 807,
+            "name": "Coffee",
+            "price": 8,
+            "image": "assets/images/menu-items/coffee.webp"
+          },
+          {
+            "id": 808,
+            "name": "Hot Chocolate",
+            "price": 12,
+            "image": "assets/images/menu-items/hot-chocolate.webp"
+          },
+          {
+            "id": 809,
+            "name": "Nutella Coffee",
+            "price": 12,
+            "image": null
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "name": "Cold Drinks",
+        "items": [
+          {
+            "id": 901,
+            "name": "XL Energy Drink",
+            "price": 10,
+            "image": "assets/images/menu-reference/item-42.jpg"
+          },
+          {
+            "id": 902,
+            "name": "Soft Drink",
+            "price": 10,
+            "image": "assets/images/menu-reference/item-43.jpg"
+          },
+          {
+            "id": 903,
+            "name": "Chocolate Milkshake",
+            "price": 15,
+            "image": "assets/images/menu-reference/item-44.jpg"
+          },
+          {
+            "id": 904,
+            "name": "Mango",
+            "price": 15,
+            "image": "assets/images/menu-reference/item-45.jpg"
+          },
+          {
+            "id": 905,
+            "name": "Strawberry",
+            "price": 15,
+            "image": "assets/images/menu-reference/item-46.jpg"
+          },
+          {
+            "id": 906,
+            "name": "Peach",
+            "price": 15,
+            "image": "assets/images/menu-reference/item-47.jpg"
+          },
+          {
+            "id": 907,
+            "name": "Lemon & Mint",
+            "price": 15,
+            "image": "assets/images/menu-reference/item-48.jpg"
+          },
+          {
+            "id": 908,
+            "name": "Nutella Milkshake",
+            "price": 20,
+            "image": null
+          },
+          {
+            "id": 909,
+            "name": "Iced Coffee",
+            "price": 20,
+            "image": "assets/images/menu-reference/item-50.jpg"
+          },
+          {
+            "id": 910,
+            "name": "Mojito",
+            "price": 20,
+            "image": "assets/images/menu-reference/item-51.jpg"
+          },
+          {
+            "id": 911,
+            "name": "Fruit Cocktail",
+            "price": 15,
+            "image": "assets/images/menu-reference/item-52.jpg"
+          },
+          {
+            "id": 912,
+            "name": "Melon",
+            "price": 15,
+            "image": "assets/images/menu-reference/item-53.jpg"
+          },
+          {
+            "id": 913,
+            "name": "Watermelon",
+            "price": 15,
+            "image": "assets/images/menu-reference/item-54.jpg"
+          },
+          {
+            "id": 914,
+            "name": "Natural Flora Drink",
+            "price": 20,
+            "image": null
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "name": "Desserts",
+        "items": [
+          {
+            "id": 1001,
+            "name": "Lazy Cake",
+            "price": 20,
+            "image": "assets/images/menu-items/lazy-cake.webp"
+          },
+          {
+            "id": 1002,
+            "name": "Nutella Mousse",
+            "price": 20,
+            "image": "assets/images/menu-items/nutella-mousse.webp"
+          },
+          {
+            "id": 1003,
+            "name": "Crepe",
+            "price": 20,
+            "image": "assets/images/menu-items/nutella-crepe.webp"
+          },
+          {
+            "id": 1004,
+            "name": "Fettuccine Crepe",
+            "price": 20,
+            "image": null
+          },
+          {
+            "id": 1005,
+            "name": "Bounty Cake",
+            "price": 20,
+            "image": "assets/images/menu-items/bounty-cake.webp"
+          },
+          {
+            "id": 1006,
+            "name": "Nutella Kunafa",
+            "price": 25,
+            "image": "assets/images/menu-items/kunafa-nutella.webp"
+          },
+          {
+            "id": 1007,
+            "name": "Cheesecake (Blueberry - Nutella - Lotus)",
+            "price": 20,
+            "image": null
+          },
+          {
+            "id": 1008,
+            "name": "DE Power",
+            "price": 25,
+            "image": null
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "name": "Ice Cream",
+        "items": [
+          {
+            "id": 1101,
+            "name": "Ice Cream",
+            "price": 15,
+            "image": "assets/images/menu-reference/item-62.jpg"
+          },
+          {
+            "id": 1102,
+            "name": "Nutella Ice Cream",
+            "price": 20,
+            "image": "assets/images/menu-reference/item-63.jpg"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "name": "Hookah",
+        "items": [
+          {
+            "id": 1201,
+            "name": "Premium Hookah",
+            "price": 100,
+            "image": "assets/images/menu-reference/item-64.jpg"
+          },
+          {
+            "id": 1202,
+            "name": "Hookah Service",
+            "price": 40,
+            "image": "assets/images/menu-reference/item-65.jpg"
+          }
+        ]
+      }
+    ]
   }
+}

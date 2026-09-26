@@ -69,14 +69,14 @@ function Header() {
 
   return (
     <motion.header
-      className={headerScrolled ? 'header-scrolled' : undefined}
+      className={`site-header${headerScrolled ? ' header-scrolled' : ''}`}
       animate={{ y: headerHidden && !reduceMotion ? '-105%' : '0%' }}
       transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="container header-main-row">
         <Link to="/" className="logo-link" aria-label={t('restaurantName')}>
           <img
-            src="/assets/images/logo.webp"
+            src="/assets/images/logo-v3.jpg"
             alt=""
             className="header-logo-img"
             width="45"

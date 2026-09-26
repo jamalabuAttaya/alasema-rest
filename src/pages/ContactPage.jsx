@@ -17,7 +17,7 @@ import { spring } from '../animations/motionVariants';
 const SOCIAL_LINKS = Object.freeze([
   { href: 'https://www.facebook.com/asemarest/', Icon: FaFacebookF, className: 'social-circle fb', label: 'Facebook' },
   { href: 'https://www.instagram.com/asemarest', Icon: FaInstagram, className: 'social-circle ig', label: 'Instagram' },
-  { href: 'https://wa.me/970594804807', Icon: FaWhatsapp, className: 'social-circle wa', label: 'WhatsApp' },
+  { href: 'https://wa.me/972594804807', Icon: FaWhatsapp, className: 'social-circle wa', label: 'WhatsApp' },
 ]);
 
 const PHONE_TEXT = '+970 59 480 4807';
@@ -30,7 +30,7 @@ function ContactPage() {
     { Icon: FaMapMarkerAlt, title: t('address'), text: t('addressText') },
     { Icon: FaPhone, title: t('phone'), text: PHONE_TEXT, href: `tel:${PHONE_LINK}` },
     { Icon: FaEnvelope, title: t('email'), text: EMAIL_TEXT, href: `mailto:${EMAIL_TEXT}` },
-    { Icon: FaWhatsapp, title: t('whatsapp'), text: PHONE_TEXT, href: 'https://wa.me/970594804807', external: true },
+    { Icon: FaWhatsapp, title: t('whatsapp'), text: '+972 59 480 4807', href: 'https://wa.me/972594804807', external: true },
   ], [t]);
 
   return (
@@ -61,6 +61,7 @@ function ContactPage() {
                       <h2>{title}</h2>
                       {href ? (
                         <a
+                        dir="ltr"
                           href={href}
                           {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                         >

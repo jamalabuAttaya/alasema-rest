@@ -13,7 +13,7 @@ import {
 } from '../../animations/motionVariants';
 
 const Modal = lazy(() => import('../common/Modal'));
-const WHATSAPP_NUMBER = '970594804807';
+const WHATSAPP_NUMBER = '972594804807';
 const menuCache = new Map();
 
 function isValidMenu(data) {
@@ -46,7 +46,7 @@ const MenuItem = memo(({ item, onSelect, formatPrice, index, isMobile }) => (
     variants={menuItemVariants(isMobile)}
     whileHover={isMobile ? undefined : {
       y: -2,
-      backgroundColor: 'rgba(216, 174, 94, 0.055)',
+      backgroundColor: 'rgba(255, 189, 46, 0.055)',
       transition: springSoft,
     }}
     whileTap={tapEffect}

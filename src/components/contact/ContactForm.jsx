@@ -3,7 +3,7 @@ import { FaWhatsapp } from 'react-icons/fa';
 import { useLanguage } from '../../context/LanguageContext';
 
 const INITIAL_FORM = Object.freeze({ name: '', phone: '', email: '', message: '' });
-const WHATSAPP_NUMBER = '970594804807';
+const WHATSAPP_NUMBER = '972594804807';
 
 function ContactForm() {
   const { t, language } = useLanguage();

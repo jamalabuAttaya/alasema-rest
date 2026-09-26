@@ -6,7 +6,7 @@ import { useLanguage } from '../../context/LanguageContext';
 const SOCIAL_LINKS = Object.freeze([
   { href: 'https://www.facebook.com/asemarest/', Icon: FaFacebookF, label: 'Facebook' },
   { href: 'https://www.instagram.com/asemarest', Icon: FaInstagram, label: 'Instagram' },
-  { href: 'https://wa.me/970594804807', Icon: FaWhatsapp, label: 'WhatsApp' },
+  { href: 'https://wa.me/972594804807', Icon: FaWhatsapp, label: 'WhatsApp' },
 ]);
 
 const FOOTER_LINKS = Object.freeze([
@@ -35,7 +35,7 @@ function Footer() {
       <div className="container">
         <div className="footer-content">
           <div className="footer-logo">
-            <img src="/assets/images/logo.webp" alt="" width="55" height="55" loading="lazy" />
+            <img src="/assets/images/logo-v3.jpg" alt="" width="55" height="55" loading="lazy" />
             <h2>ALASEMA</h2>
             <p>{t('restaurantName')}</p>
           </div>
@@ -54,7 +54,11 @@ function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <p>{t('copyright')}</p>
+          <p dir="rtl">
+  <span>مطعم العاصمة - جميع الحقوق محفوظة</span>
+  {' '}
+  <bdi dir="ltr">© 2026</bdi>
+</p>
           <a
             className="developer-credit"
             href="https://jamalabuattaya-portfolio.netlify.app"

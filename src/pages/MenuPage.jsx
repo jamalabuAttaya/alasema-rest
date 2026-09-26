@@ -28,7 +28,7 @@ function MenuPage() {
             transition={{ delay: 0.24, duration: 0.45 }}
           >
             <a
-              href="https://wa.me/970594804807"
+              href="https://wa.me/972594804807"
               target="_blank"
               rel="noopener noreferrer"
               className="order-btn whatsapp-btn"

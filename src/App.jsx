@@ -19,7 +19,7 @@ const AboutPage = lazy(() => import('./pages/AboutPage'));
 const GalleryPage = lazy(() => import('./pages/GalleryPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
-const SPLASH_SESSION_KEY = 'alasema_splash_seen_v2';
+const SPLASH_SESSION_KEY = 'alasema_splash_seen_v3';
 
 function shouldShowSplash() {
   try {

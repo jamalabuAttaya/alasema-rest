@@ -50,10 +50,10 @@ function HeroSection() {
         aria-hidden="true"
       >
         <img
-          src="/assets/images/hero-bg-new.webp"
+          src="/assets/images/hero-banner-v3.jpg"
           alt=""
-          width="1600"
-          height="900"
+          width="960"
+          height="378"
           fetchPriority="high"
           decoding="async"
         />

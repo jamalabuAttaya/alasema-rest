@@ -21,15 +21,15 @@ const GALLERY_ITEMS = Object.freeze([
     descAr: 'برجر دجاج يقدم مع البطاطا والمخللات.',
     descEn: 'Chicken burger served with fries and pickles.',
     price: 30,
-    image: '/assets/images/menu-items/chicken-burger.webp',
+    image: '/assets/images/menu-reference/item-09.jpg',
   },
   {
-    titleAr: 'لقيمات',
-    titleEn: 'Luqaimat',
-    descAr: 'لقيمات طازجة من قائمة الحلويات.',
-    descEn: 'Fresh luqaimat from our dessert menu.',
+    titleAr: 'باونتي كيك',
+    titleEn: 'Bounty Cake',
+    descAr: 'باونتي كيك من قائمة الحلويات.',
+    descEn: 'Bounty cake from our dessert menu.',
     price: 20,
-    image: '/assets/images/menu-items/luqaimat.webp',
+    image: '/assets/images/menu-items/bounty-cake.webp',
   },
   {
     titleAr: 'كوكتيل فواكه',
@@ -37,7 +37,7 @@ const GALLERY_ITEMS = Object.freeze([
     descAr: 'كوكتيل فواكه بارد ومنعش.',
     descEn: 'A cold and refreshing fruit cocktail.',
     price: 15,
-    image: '/assets/images/menu-items/cocktail.webp',
+    image: '/assets/images/menu-reference/item-52.jpg',
   },
 ]);
 
@@ -89,12 +89,12 @@ function GalleryGrid() {
     ? (language === 'ar' ? selectedImage.descAr : selectedImage.descEn)
     : '';
   const selectedOrderUrl = selectedImage
-    ? `https://wa.me/970594804807?text=${encodeURIComponent(
+    ? `https://wa.me/972594804807?text=${encodeURIComponent(
         language === 'ar'
           ? `مرحباً، أود طلب ${selectedTitle}`
           : `Hello, I would like to order ${selectedTitle}`
       )}`
-    : 'https://wa.me/970594804807';
+    : 'https://wa.me/972594804807';
 
   return (
     <>

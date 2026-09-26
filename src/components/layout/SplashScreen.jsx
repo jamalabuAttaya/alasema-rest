@@ -14,7 +14,7 @@ function SplashScreen({ onFinish }) {
     document.body.style.overflow = 'hidden';
     skipButtonRef.current?.focus({ preventScroll: true });
 
-    const timer = window.setTimeout(finish, reduceMotion ? 500 : 2200);
+    const timer = window.setTimeout(finish, 3000);
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') finish();
       if (event.key === 'Tab') {
@@ -40,7 +40,7 @@ function SplashScreen({ onFinish }) {
         aria-modal="true"
         aria-label={t('restaurantName')}
         initial={{ opacity: 1 }}
-        exit={{ opacity: 0, transition: { duration: reduceMotion ? 0 : 0.45 } }}
+        exit={{ opacity: 0, transition: { duration: reduceMotion ? 0 : 0.2 } }}
       >
         <motion.div
           className="splash-glow splash-glow-one"
@@ -67,7 +67,7 @@ function SplashScreen({ onFinish }) {
             animate={{ rotate: 0, scale: 1 }}
             transition={{ delay: 0.15, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <img src="/assets/images/logo.webp" alt="" width="118" height="118" />
+            <img src="/assets/images/logo-v3.jpg" alt="" width="118" height="118" />
           </motion.div>
 
           <motion.p
@@ -91,7 +91,7 @@ function SplashScreen({ onFinish }) {
             <motion.span
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
-              transition={{ duration: reduceMotion ? 0.35 : 1.65, delay: reduceMotion ? 0 : 0.35, ease: 'easeInOut' }}
+              transition={{ duration: reduceMotion ? 0 : 2.65, delay: reduceMotion ? 0 : 0.35, ease: 'easeInOut' }}
             />
           </div>
         </motion.div>
